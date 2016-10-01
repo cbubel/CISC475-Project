@@ -11,6 +11,6 @@
         })
         .otherwise({
             templateUrl: "views/404.html"
-        })
+        });
     });
 })();
