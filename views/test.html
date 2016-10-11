@@ -1,24 +1,90 @@
-<h1>test</h1>
+<h1>Enter Student Information</h1>
 
-<md-content layout="row">
-  <md-input-container>
-    <label>First Name</label>
-    <input/>
-  </md-input-container>
-  <md-input-container>
-    <label>Last Name</label>
-    <input/>
-  </md-input-container>
-</md-content>
+<div ng-controller="studentCtrl" style="width: 50%">
 
-<md-content layout="column" layout-padding style="width:50%">
+<md-content layout="column">
+  <md-content layout="row">
+    <md-input-container>
+      <label>First Name</label>
+      <input/>
+    </md-input-container>
+    <md-input-container>
+      <label>Last Name</label>
+      <input/>
+    </md-input-container>
+  </md-content>
+
   <md-input-container>
     <label>Student ID</label>
-    <input />
+    <input/>
   </md-input-container>
 
   <md-input-container>
-    <label>email</label>
-    <input />
+    <label>Email</label>
+    <input/>
   </md-input-container>
+
+  <h1 class="md-title">Student Classification</h1>
+  <md-radio-group ng-model="studentClassifications">
+    <md-radio-button value="Undergraduate">Undergraduate</md-radio-button>
+    <md-radio-button value="Graduate">Graduate</md-radio-button>
+  </md-radio-group>
+
+  <h1 class="md-title">Student Schedule</h1>
+  <div layout="row">
+    <md-input-container>
+      <label>Course ID</label>
+      <input/>
+    </md-input-container>
+    <md-input-container>
+        <label>Start Time</label>
+        <md-select ng-model="selectedStartTime" md-selected-text="getSelectedStartTime()">
+          <md-optgroup label="Start Times">
+            <md-option ng-value="startTime" ng-repeat="startTime in startTimes">{{startTime}}</md-option>
+          </md-optgroup>
+        </md-select>
+      </md-input-container>
+      <md-input-container>
+          <label>End Time</label>
+          <md-select ng-model="selectedEndTime" md-selected-text="getSelectedEndTime()">
+            <md-optgroup label="End Times">
+              <md-option ng-value="endTime" ng-repeat="endTime in startTimes">{{endTime}}</md-option>
+            </md-optgroup>
+          </md-select>
+        </md-input-container>
+  </div>
+
+  <h1 class="md-title">Student Grades</h1>
+  <div layout="row">
+    <md-input-container>
+      <label>Course ID</label>
+      <input/>
+    </md-input-container>
+    <md-input-container>
+        <label>Grade</label>
+        <md-select ng-model="selectedGrade" md-selected-text="getSelectedGrade()">
+          <md-optgroup label="Grades">
+            <md-option ng-value="grade" ng-repeat="grade in grades">{{grade}}</md-option>
+          </md-optgroup>
+        </md-select>
+      </md-input-container>
+  </div>
+
+  <h1 class="md-title">Student Tags</h1>
+
+  <md-chips ng-model="fruitNames" readonly="readonly"></md-chips>
+  <md-chips class="custom-chips" readonly="readonly" md-transform-chip="newVeg($chip)">
+    <md-chip-template>
+      <span>
+        <strong>[{{$index}}] {{$chip.name}}</strong>
+        <em>({{$chip.type}})</em>
+      </span>
+    </md-chip-template>
+    <button md-chip-remove class="md-primary closeButton">
+      <md-icon md-svg-icon="md-close"></md-icon>
+    </button>
+  </md-chips>
+
+
 </md-content>
+</div>
