@@ -8,7 +8,8 @@
             controller: "homeCtrl"
         })
         .when("/test", {
-            templateUrl : "views/test.html"
+            templateUrl : "views/test.html",
+            controller: "studentCtrl"
         })
         .otherwise({
             templateUrl: "views/404.html"
