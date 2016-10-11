@@ -1,15 +1,12 @@
 (function () {
-  var app = angular.module('baseApp');
+    var app = angular.module('baseApp');
 
-  app.controller('homeCtrl', ['$scope', function($scope) {
-      var database = firebase.database();
+    app.controller('homeCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
+        $scope.testFunction = function() {
+            var data = firebaseService.readTestData();
+            console.log(data);
+        };
 
-      function read() {
-          return database.ref("another").once("value").then(function(snapshot) {
-              console.log(snapshot.val());
-          });
-      }
-
-      read();
-  }]);
+        $scope.testFunction();
+    }]);
 })();
