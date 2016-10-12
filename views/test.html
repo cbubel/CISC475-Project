@@ -1,6 +1,6 @@
 <h1>Enter Student Information</h1>
 
-<div ng-controller="studentCtrl" style="width: 50%">
+<div ng-controller="studentCtrl" class="entryForm">
 
 <md-content layout="column">
   <md-content layout="row">
@@ -30,6 +30,11 @@
     <md-radio-button value="Graduate">Graduate</md-radio-button>
   </md-radio-group>
 
+  <md-input-container>
+    <label>Expected Graduation Year</label>
+    <input/>
+  </md-input-container>
+
   <h1 class="md-title">Student Schedule</h1>
   <div layout="row">
     <md-input-container>
@@ -53,6 +58,13 @@
           </md-select>
         </md-input-container>
   </div>
+  <div layout="row">
+    <md-checkbox ng-model="data.cb1" aria-label="Checkbox M">Monday</md-checkbox>
+    <md-checkbox ng-model="data.cb2" aria-label="Checkbox T">Tuesday</md-checkbox>
+    <md-checkbox ng-model="data.cb3" aria-label="Checkbox W">Wednesday</md-checkbox>
+    <md-checkbox ng-model="data.cb4" aria-label="Checkbox R">Thursday</md-checkbox>
+    <md-checkbox ng-model="data.cb5" aria-label="Checkbox F">Friday</md-checkbox>
+  </div>
 
   <h1 class="md-title">Student Grades</h1>
   <div layout="row">
@@ -70,21 +82,18 @@
       </md-input-container>
   </div>
 
-  <h1 class="md-title">Student Tags</h1>
+  <div ng-controller="tagCtrl as ctrl">
+  <h1 class="md-title">Student Tags</h1><br>
+  <md-chips ng-model="ctrl.tags"
+      readonly="ctrl.readonly"
+      md-removable="ctrl.removable"
+      placeholder="Enter a tag"
+      delete-button-label="Remove Tag"
+      delete-hint="Press delete to remove tag"
+      secondary-placeholder="+Tag"></md-chips>
+	</div>
+  <br>
+  <md-button class="md-raised md-primary">Submit</md-button>
 
-  <md-chips ng-model="fruitNames" readonly="readonly"></md-chips>
-  <md-chips class="custom-chips" readonly="readonly" md-transform-chip="newVeg($chip)">
-    <md-chip-template>
-      <span>
-        <strong>[{{$index}}] {{$chip.name}}</strong>
-        <em>({{$chip.type}})</em>
-      </span>
-    </md-chip-template>
-    <button md-chip-remove class="md-primary closeButton">
-      <md-icon md-svg-icon="md-close"></md-icon>
-    </button>
-  </md-chips>
-
-
-</md-content>
+  </md-content>
 </div>

@@ -2,34 +2,20 @@
   var app = angular.module('baseApp');
 
   app.controller('studentCtrl', ['$scope', function($scope) {
-
-    var self = this;
-    self.readonly = false;
-    // Lists of fruit names and Vegetable objects
-    self.fruitNames = ['Apple', 'Banana', 'Orange'];
-    self.roFruitNames = angular.copy(self.fruitNames);
-    self.tags = [];
-    self.vegObjs = [
-       {
-          'name' : 'Broccoli',
-          'type' : 'Brassica'
-       },
-       {
-          'name' : 'Cabbage',
-          'type' : 'Brassica'
-       },
-       {
-          'name' : 'Carrot',
-          'type' : 'Umbelliferous'
-       }
-    ];
-    self.newVeg = function(chip) {
-       return {
-          name: chip,
-          type: 'unknown'
-       };
-    };
-    $scope.startTimes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    $scope.startTimes = ['8:00am', '8:10am', '8:20am', '8:30am', '8:40am', '8:50am',
+                        '9:00am', '9:10am', '9:20am', '9:30am', '9:40am', '9:50am',
+                        '10:00am', '10:10am', '10:20am', '10:30am', '10:40am', '10:50am',
+                        '11:00am', '11:10am', '11:20am', '11:30am', '11:40am', '11:50am',
+                        '12:00pm', '12:10pm', '12:20pm', '12:30pm', '12:40pm', '12:50pm',
+                        '1:00pm', '1:10pm', '1:20pm', '1:30pm', '1:40pm', '1:50pm',
+                        '2:00pm', '2:10pm', '2:20pm', '2:30pm', '2:40pm', '2:50pm',
+                        '3:00pm', '3:10pm', '3:20pm', '3:30pm', '3:40pm', '3:50pm',
+                        '4:00pm', '4:10pm', '4:20pm', '4:30pm', '4:40pm', '4:50pm',
+                        '5:00pm', '5:10pm', '5:20pm', '5:30pm', '5:40pm', '5:50pm',
+                        '6:00pm', '6:10pm', '6:20pm', '6:30pm', '6:40pm', '6:50pm',
+                        '7:00pm', '7:10pm', '7:20pm', '7:30pm', '7:40pm', '7:50pm',
+                        '8:00pm', '8:10pm', '8:20pm', '8:30pm', '8:40pm', '8:50pm',
+                        '9:00pm', '9:10pm', '9:20pm', '9:30pm', '9:40pm', '9:50pm', '10:00pm'];
       $scope.selectedStartTime;
       $scope.getSelectedStartTime = function() {
         if ($scope.selectedStartTime !== undefined) {
@@ -38,7 +24,20 @@
           return "Start Time";
         }
       };
-    $scope.endTimes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    $scope.endTimes = ['8:00am', '8:10am', '8:20am', '8:30am', '8:40am', '8:50am',
+                        '9:00am', '9:10am', '9:20am', '9:30am', '9:40am', '9:50am',
+                        '10:00am', '10:10am', '10:20am', '10:30am', '10:40am', '10:50am',
+                        '11:00am', '11:10am', '11:20am', '11:30am', '11:40am', '11:50am',
+                        '12:00pm', '12:10pm', '12:20pm', '12:30pm', '12:40pm', '12:50pm',
+                        '1:00pm', '1:10pm', '1:20pm', '1:30pm', '1:40pm', '1:50pm',
+                        '2:00pm', '2:10pm', '2:20pm', '2:30pm', '2:40pm', '2:50pm',
+                        '3:00pm', '3:10pm', '3:20pm', '3:30pm', '3:40pm', '3:50pm',
+                        '4:00pm', '4:10pm', '4:20pm', '4:30pm', '4:40pm', '4:50pm',
+                        '5:00pm', '5:10pm', '5:20pm', '5:30pm', '5:40pm', '5:50pm',
+                        '6:00pm', '6:10pm', '6:20pm', '6:30pm', '6:40pm', '6:50pm',
+                        '7:00pm', '7:10pm', '7:20pm', '7:30pm', '7:40pm', '7:50pm',
+                        '8:00pm', '8:10pm', '8:20pm', '8:30pm', '8:40pm', '8:50pm',
+                        '9:00pm', '9:10pm', '9:20pm', '9:30pm', '9:40pm', '9:50pm', '10:00pm'];
       $scope.selectedEndTime;
       $scope.getSelectedEndTime = function() {
         if ($scope.selectedEndTime !== undefined) {
