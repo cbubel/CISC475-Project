@@ -7,10 +7,6 @@
             templateUrl : "views/home.html",
             controller: "homeCtrl"
         })
-        .when("/test", {
-            templateUrl : "views/test.html",
-            controller: "studentCtrl"
-        })
         .when("/students", {
             templateUrl : "views/students.html",
             controller: "studentsCtrl"
