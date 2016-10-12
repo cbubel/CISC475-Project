@@ -35,39 +35,43 @@
     <input/>
   </md-input-container>
 
+  <!-- Class Entry  -->
   <h1 class="md-title">Student Schedule</h1>
-  <div layout="row">
-    <md-input-container>
-      <label>Course ID</label>
-      <input/>
-    </md-input-container>
-    <md-input-container>
-        <label>Start Time</label>
-        <md-select ng-model="selectedStartTime" md-selected-text="getSelectedStartTime()">
-          <md-optgroup label="Start Times">
-            <md-option ng-value="startTime" ng-repeat="startTime in startTimes">{{startTime}}</md-option>
-          </md-optgroup>
-        </md-select>
+  <div ng-repeat="course in courses">
+    <div layout="row">
+      <md-input-container>
+        <label>Course ID</label>
+        <input/>
       </md-input-container>
       <md-input-container>
-          <label>End Time</label>
-          <md-select ng-model="selectedEndTime" md-selected-text="getSelectedEndTime()">
-            <md-optgroup label="End Times">
-              <md-option ng-value="endTime" ng-repeat="endTime in startTimes">{{endTime}}</md-option>
+          <label>Start Time</label>
+          <md-select ng-model="selectedStartTime" md-selected-text="getSelectedStartTime()">
+            <md-optgroup label="Start Times">
+              <md-option ng-value="startTime" ng-repeat="startTime in startTimes">{{startTime}}</md-option>
             </md-optgroup>
           </md-select>
         </md-input-container>
+        <md-input-container>
+            <label>End Time</label>
+            <md-select ng-model="selectedEndTime" md-selected-text="getSelectedEndTime()">
+              <md-optgroup label="End Times">
+                <md-option ng-value="endTime" ng-repeat="endTime in startTimes">{{endTime}}</md-option>
+              </md-optgroup>
+            </md-select>
+          </md-input-container>
+    </div>
+    <div layout="row">
+      <md-checkbox ng-model="data.cb1" aria-label="Checkbox M">Monday</md-checkbox>
+      <md-checkbox ng-model="data.cb2" aria-label="Checkbox T">Tuesday</md-checkbox>
+      <md-checkbox ng-model="data.cb3" aria-label="Checkbox W">Wednesday</md-checkbox>
+      <md-checkbox ng-model="data.cb4" aria-label="Checkbox R">Thursday</md-checkbox>
+      <md-checkbox ng-model="data.cb5" aria-label="Checkbox F">Friday</md-checkbox>
+    </div>
   </div>
-  <div layout="row">
-    <md-checkbox ng-model="data.cb1" aria-label="Checkbox M">Monday</md-checkbox>
-    <md-checkbox ng-model="data.cb2" aria-label="Checkbox T">Tuesday</md-checkbox>
-    <md-checkbox ng-model="data.cb3" aria-label="Checkbox W">Wednesday</md-checkbox>
-    <md-checkbox ng-model="data.cb4" aria-label="Checkbox R">Thursday</md-checkbox>
-    <md-checkbox ng-model="data.cb5" aria-label="Checkbox F">Friday</md-checkbox>
-  </div>
+  <md-button ng-click="addCourse()" style="width:120px;"><span>Add Course</span></md-button>
 
   <h1 class="md-title">Student Grades</h1>
-  <div layout="row">
+  <div layout="row" ng-repeat="pastGrade in pastGrades">
     <md-input-container>
       <label>Course ID</label>
       <input/>
@@ -81,6 +85,7 @@
         </md-select>
       </md-input-container>
   </div>
+  <md-button style="width:120px;" ng-click="addPastGrade()"><span>Add Grade</span></md-button>
 
   <div ng-controller="tagCtrl as ctrl">
   <h1 class="md-title">Student Tags</h1><br>
