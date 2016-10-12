@@ -4,11 +4,14 @@
     app.service("firebaseService", function() {
         var db = firebase.database();
         
-        this.readTestData = function() {
-            db.ref("another").once("value").then(function(snapshot) {
-                console.log(snapshot.val());
+        this.getStudents = function() {
+            return db.ref("students").once("value").then(function(snapshot) {
                 return snapshot.val();
             });
+        };
+
+        this.addStudent = function(student) {
+            db.ref("students").push(student);
         };
 
     });

@@ -11,6 +11,10 @@
             templateUrl : "views/test.html",
             controller: "studentCtrl"
         })
+        .when("/students", {
+            templateUrl : "views/students.html",
+            controller: "studentsCtrl"
+        })
         .when("/studentForm", {
             templateUrl : "views/studentForm.html",
             controller: "studentCtrl"
