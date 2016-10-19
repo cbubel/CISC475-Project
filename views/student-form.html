@@ -1,0 +1,84 @@
+<md-content layout="column">
+	<md-content layout="row">
+		<md-input-container>
+			<label>First Name</label>
+			<input ng-model="student.first_name" />
+		</md-input-container>
+		<md-input-container>
+			<label>Last Name</label>
+			<input ng-model="student.last_name" />
+		</md-input-container>
+	</md-content>
+
+	<md-input-container>
+		<label>Student ID</label>
+		<input ng-model="student.id" />
+	</md-input-container>
+
+	<md-input-container>
+		<label>Email</label>
+		<input ng-model="student.email" />
+	</md-input-container>
+
+	<h1 class="md-title">Student Classification</h1>
+	<md-radio-group>
+		<md-radio-button value="Undergraduate" ng-click="student.isUndergrad = true;">Undergraduate</md-radio-button>
+		<md-radio-button value="Graduate" ng-click="student.isUndergrad = false;">Graduate</md-radio-button>
+	</md-radio-group>
+
+	<md-input-container>
+		<label>Expected Graduation Year</label>
+		<input/>
+	</md-input-container>
+
+	<!-- Class Entry  -->
+	<h1 class="md-title">Student Schedule</h1>
+	<div ng-repeat="course in student.schedule track by $index">
+		<div layout="row">
+			<md-input-container>
+				<label>Course ID</label>
+				<input ng-model="course.id" />
+			</md-input-container>
+			<md-input-container>
+				<label>Start Time</label>
+				<input ng-model="course.start_time" />
+			</md-input-container>
+			<md-input-container>
+				<label>End Time</label>
+				<input ng-model="course.end_time" />
+			</md-input-container>
+		</div>
+		<div layout="row">
+			<md-checkbox ng-model="course.days.monday" aria-label="Checkbox M">Monday</md-checkbox>
+			<md-checkbox ng-model="course.days.tuesday" aria-label="Checkbox T">Tuesday</md-checkbox>
+			<md-checkbox ng-model="course.days.wednesday" aria-label="Checkbox W">Wednesday</md-checkbox>
+			<md-checkbox ng-model="course.days.thursday" aria-label="Checkbox R">Thursday</md-checkbox>
+			<md-checkbox ng-model="course.days.friday" aria-label="Checkbox F">Friday</md-checkbox>
+		</div>
+	</div>
+	<md-button ng-click="addCourse()" style="width:120px;"><span>Add Course</span></md-button>
+
+	<h1 class="md-title">Student Grades</h1>
+	<div layout="row" ng-repeat="grade in student.grades track by $index">
+		<md-input-container>
+			<label>Course ID</label>
+			<input ng-model="grade.id" />
+		</md-input-container>
+		<md-input-container>
+			<label>Letter Grade</label>
+			<md-select ng-model="grade.letter_grade">
+				<md-optgroup label="Grades">
+					<md-option ng-value="grade" ng-repeat="grade in grades">{{grade}}</md-option>
+				</md-optgroup>
+			</md-select>
+		</md-input-container>
+	</div>
+	<md-button style="width:120px;" ng-click="addGrade()"><span>Add Grade</span></md-button>
+
+	<h1 class="md-title">Student Tags</h1><br>
+	<md-chips ng-model="student.tags" md-removable="ctrl.removable" placeholder="Enter a tag" delete-button-label="Remove Tag"
+		delete-hint="Press delete to remove tag" secondary-placeholder="+Tag"></md-chips>
+	<br>
+	<md-button class="md-raised md-primary" ng-click="submit()">Submit</md-button>
+
+</md-content>
