@@ -1,3 +1,1 @@
-(function () {
-    var app = angular.module('baseApp', ["ngRoute", "ngMaterial"]);
-})();
+var app = angular.module('baseApp', ["ngRoute", "ngMaterial"]);
