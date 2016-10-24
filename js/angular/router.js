@@ -15,7 +15,7 @@ app.config(function($routeProvider) {
     })
     .when("/add-course", {
         templateUrl : "views/add-course.html",
-        controller: "course_form_ctrl"
+        controller: "courseFormCtrl"
     })
     .otherwise({
         templateUrl: "views/404.html"
