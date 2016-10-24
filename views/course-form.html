@@ -1,86 +1,72 @@
-<h1>Enter Course Information</h1>
-
-<div ng-controller="courseCtrl" class="entryForm">
+<div class="entryForm">
 
     <md-content layout="column">
         <md-input-container>
             <label>Course ID</label>
-            <input/>
+            <input ng-model="course.courseID" />
         </md-input-container>
 
-        <div ng-controller="tagCtrl as ctrl">
+        <div>
             <h1 class="md-title">Course Tags</h1><br>
-            <md-chips ng-model="ctrl.tags" readonly="ctrl.readonly" md-removable="ctrl.removable" placeholder="Enter a tag" delete-button-label="Remove Tag" delete-hint="Press delete to remove tag" secondary-placeholder="+Tag"></md-chips>
+            <md-chips ng-model="course.courseTags" placeholder="Enter a tag" delete-button-label="Remove Tag" delete-hint="Press delete to remove tag" secondary-placeholder="+Tag"></md-chips>
         </div>
 
         <h1 class="md-title">Section Information</h1><br>
-        <md-content ng-repeat="section in sections">
-            <md-input-container>
-                <label>Section ID</label>
-                <input/>
-            </md-input-container>
 
-            <md-input-container>
-                <label>Instructor</label>
-                <input/>
-            </md-input-container>
+        <md-content ng-repeat="section in course.sections track by $index">
 
             <div layout="row">
+              <md-input-container>
+                  <label>Section ID</label>
+                  <input ng-model="section.sectionID" />
+              </md-input-container>
+              <md-input-container>
+                  <label>Instructor</label>
+                  <input ng-model="section.instructor" />
+              </md-input-container>
                 <md-input-container>
                     <label>Start Time</label>
-                    <md-select ng-model="selectedStartTime" md-selected-text="getSelectedStartTime()">
-                        <md-optgroup label="Start Times">
-                            <md-option ng-value="startTime" ng-repeat="startTime in startTimes">{{startTime}}</md-option>
-                        </md-optgroup>
-                    </md-select>
+                    <input ng-model="section.startTime" />
                 </md-input-container>
                 <md-input-container>
                     <label>End Time</label>
-                    <md-select ng-model="selectedEndTime" md-selected-text="getSelectedEndTime()">
-                        <md-optgroup label="End Times">
-                            <md-option ng-value="endTime" ng-repeat="endTime in startTimes">{{endTime}}</md-option>
-                        </md-optgroup>
-                    </md-select>
+                    <input ng-model="section.endTime" />
                 </md-input-container>
             </div>
+
             <div layout="row">
-                <md-checkbox ng-model="data.cb1" aria-label="Checkbox M">Monday</md-checkbox>
-                <md-checkbox ng-model="data.cb2" aria-label="Checkbox T">Tuesday</md-checkbox>
-                <md-checkbox ng-model="data.cb3" aria-label="Checkbox W">Wednesday</md-checkbox>
-                <md-checkbox ng-model="data.cb4" aria-label="Checkbox R">Thursday</md-checkbox>
-                <md-checkbox ng-model="data.cb5" aria-label="Checkbox F">Friday</md-checkbox>
+                <md-checkbox ng-model="section.days.monday" aria-label="Checkbox M">Monday</md-checkbox>
+                <md-checkbox ng-model="section.days.tuesday" aria-label="Checkbox T">Tuesday</md-checkbox>
+                <md-checkbox ng-model="section.days.wednesday" aria-label="Checkbox W">Wednesday</md-checkbox>
+                <md-checkbox ng-model="section.days.thursday" aria-label="Checkbox R">Thursday</md-checkbox>
+                <md-checkbox ng-model="section.days.friday" aria-label="Checkbox F">Friday</md-checkbox>
             </div>
 
-            <md-input-container style="width:100%">
-                <label>Number of Students in Section</label>
-                <input ng-pattern="/^1234$/" flex type="number">
-            </md-input-container>
+            <div layout="column" style="width:300px">
+                <md-input-container>
+                    <label>Number of Students in Section</label>
+                    <input ng-model="section.numberOfStudents" type="number">
+                </md-input-container>
+                <md-input-container>
+                    <label># Undergraduate TAs Needed</label>
+                    <input ng-model="section.undergradTAsNeeded" type="number">
+                </md-input-container>
+                <md-input-container>
+                    <label># Graduate TAs Needed</label>
+                    <input ng-model="section.gradTAsNeeded" type="number">
+                </md-input-container>
+                <md-input-container>
+                    <label># Undergraduate LAs Needed</label>
+                    <input ng-model="section.undergradLAsNeeded" type="number">
+                </md-input-container>
+            </div>
         </md-content>
+
         <md-button ng-click="addSection()"><span>Add Section</span></md-button>
 
-        <h1 class="md-title">Desired Assistants</h1><br>
-        <div layout="row">
-            <md-input-container>
-                <label># Undergraduate TAs</label>
-                <input ng-pattern="/^1234$/" flex type="number">
-            </md-input-container>
-            <md-input-container>
-                <label># Graduate TAs</label>
-                <input ng-pattern="/^1234$/" flex type="number">
-            </md-input-container>
-            <md-input-container>
-                <label># Undergraduate LAs</label>
-                <input ng-pattern="/^1234$/" flex type="number">
-            </md-input-container>
-            <md-input-container>
-                <label># Graduate LAs</label>
-                <input ng-pattern="/^1234$/" flex type="number">
-            </md-input-container>
-        </div>
-
-
         <br>
-        <md-button class="md-raised md-primary">Submit</md-button>
+
+        <md-button ng-click="submit()" class="md-raised md-primary">Submit</md-button>
 
     </md-content>
 </div>
