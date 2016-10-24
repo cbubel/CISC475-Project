@@ -1,6 +1,6 @@
 var app = angular.module('baseApp');
 
-app.controller('courseFormCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
+app.controller('editStudentCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
 
   $scope.course = new Course();
 
