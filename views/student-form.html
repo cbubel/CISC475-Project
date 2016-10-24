@@ -26,11 +26,6 @@
 		<md-radio-button value="Graduate" ng-click="student.isUndergrad = false;">Graduate</md-radio-button>
 	</md-radio-group>
 
-	<md-input-container>
-		<label>Expected Graduation Year</label>
-		<input/>
-	</md-input-container>
-
 	<!-- Class Entry  -->
 	<h1 class="md-title">Student Schedule</h1>
 	<div ng-repeat="course in student.schedule track by $index">
@@ -55,8 +50,12 @@
 			<md-checkbox ng-model="course.days.thursday" aria-label="Checkbox R">Thursday</md-checkbox>
 			<md-checkbox ng-model="course.days.friday" aria-label="Checkbox F">Friday</md-checkbox>
 		</div>
+		<div layout="row">
+			<md-button ng-click="removeCourse($index)"><span>Remove Course</span></md-button>
+		</div>
 	</div>
 	<md-button ng-click="addCourse()" style="width:120px;"><span>Add Course</span></md-button>
+
 
 	<h1 class="md-title">Student Grades</h1>
 	<div layout="row" ng-repeat="grade in student.grades track by $index">
@@ -72,6 +71,7 @@
 				</md-optgroup>
 			</md-select>
 		</md-input-container>
+		<md-button ng-click="removeGrade($index)" style="width:120px;"><span>Remove Grade</span></md-button>
 	</div>
 	<md-button style="width:120px;" ng-click="addGrade()"><span>Add Grade</span></md-button>
 
