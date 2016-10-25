@@ -32,6 +32,6 @@ app.controller('abstractStudentCtrl', ['$scope', '$location', '$routeParams', 'f
     $scope.student.grades.forEach(function(grade) {
       delete grade["$$hashKey"];
     });
-    firebaseService.updateStudent($scope.student);
+    firebaseService.addStudent($scope.student);
   };
 }]);
