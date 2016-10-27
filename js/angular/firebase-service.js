@@ -4,27 +4,39 @@ app.service("firebaseService", function() {
   var db = firebase.database();
 
   this.getStudents = function() {
-    return db.ref("students").once("value").then(function(snapshot) {
+    return db.ref("students").once("value")
+    .then(function(snapshot) {
       return snapshot.val();
     });
   };
 
-  this.addStudent = function(student) {
-    db.ref("students").push(student);
+  // Model others after this
+  this.addStudent = function(student, success, failure) {
+    console.log(student);
+    db.ref("students").push(student)
+    .then(function(snapshot) {
+      success("Success");
+    }, function(error) {
+      failure(error);
+    });
   };
 
 
   this.getStudentById = function(id){
-    return db.ref("students").orderByChild("id").equalTo(id).on("child_added", function(snapshot) {
+    db.ref("students").orderByChild("id").equalTo(id).on("child_added", function(snapshot) {
       return snapshot.val();
     }, function(error) {
-      console.error(error);
+      if(error) {
+        console.error(error);
+      } else {
+        console.log("Success");
+      }
     });
   };
 
   // Does not work yet, is inserting as a sub-item
   this.updateStudent = function(id, student, callback, error) {
-    db.ref(`students/${id}`).set(student)
+    db.ref(`students/${id}`).update(set)
     .then(function(res) {
       callback("Success");
     })
