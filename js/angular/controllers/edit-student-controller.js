@@ -1,13 +1,9 @@
 var app = angular.module('baseApp');
 
-app.controller('abstractStudentCtrl', ['$scope', '$location', '$routeParams', 'firebaseService', function($scope, $location, $routeParams, firebaseService) {
+app.controller('editStudentCtrl', ['$scope', '$location', '$routeParams', 'firebaseService', function($scope, $location, $routeParams, firebaseService) {
   $scope.grades = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F'];
 
-  if($location.path().includes("edit-student")) {
-    $scope.student = firebaseService.getStudentById($routeParams.student_id);
-  } else {
-    $scope.student = new Student();
-  }
+  $scope.student = firebaseService.getStudentById($routeParams.student_id);
 
   $scope.addCourse = function() {
     $scope.student.addCourseTaking(new CourseTaking());
@@ -26,12 +22,20 @@ app.controller('abstractStudentCtrl', ['$scope', '$location', '$routeParams', 'f
   };
 
   $scope.submit = function() {
+    $scope.student.id = parseInt($scope.student.id);
     $scope.student.schedule.forEach(function(course) {
       delete course["$$hashKey"];
     });
     $scope.student.grades.forEach(function(grade) {
       delete grade["$$hashKey"];
     });
-    firebaseService.addStudent($scope.student);
+
+    firebaseService.updateStudent($scope.student, function(result) {
+      toastr.success("Updated student");
+      console.log(result);
+    }, function(error) {
+      toastr.error("Failed to update");
+      console.log(error);
+    });
   };
 }]);

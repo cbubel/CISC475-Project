@@ -11,11 +11,11 @@ app.config(function($routeProvider) {
   })
   .when("/add-student", {
     templateUrl : "views/add-student.html",
-    controller: "abstractStudentCtrl"
+    controller: "addStudentCtrl"
   })
   .when("/edit-student/:student_id", {
     templateUrl : "views/edit-student.html",
-    controller: "abstractStudentCtrl"
+    controller: "editStudentCtrl"
   })
   .when("/add-course", {
     templateUrl : "views/add-course.html",
