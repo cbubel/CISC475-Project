@@ -12,7 +12,13 @@ app.controller('addCourseCtrl', ['$scope', 'firebaseService', function($scope, f
       $scope.course.sections.forEach(function(section) {
           delete section["$$hashKey"];
       });
-      firebaseService.addCourse($scope.course);
+      firebaseService.addCourse($scope.course, function(result) {
+        toastr.success("Added Course");
+        console.log(result);
+      }, function(error) {
+        toastr.error("Failed to add");
+        console.log(error);
+      });
   };
 
 }]);

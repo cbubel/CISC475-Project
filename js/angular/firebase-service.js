@@ -10,6 +10,35 @@ app.service("firebaseService", function() {
     });
   };
 
+  this.getCourses = function(){
+    return db.ref("courses").once("value")
+    .then(function(snapshot) {
+      return snapshot.val();
+    });
+  };
+
+  this.getStudentById = function(id){
+    return db.ref(`students/${id}`).once("value")
+    .then(function(snapshot) {
+      return snapshot.val();
+    }, function(error) {
+      if(error) {
+        console.error(error);
+      } else {
+        console.log("Success");
+      }
+    });
+  };
+
+  this.getCourseById = function(id){
+    return db.ref(`courses/${id}`).once("value").then(function(snapshot) {
+      console.log(snapshot.val());
+      return snapshot.val();
+    }, function(error){
+      console.error(error);
+    });
+  };
+
   // Model others after this
   this.addStudent = function(student, success, failure) {
     console.log(student);
@@ -21,48 +50,31 @@ app.service("firebaseService", function() {
     });
   };
 
-
-  this.getStudentById = function(id){
-    db.ref("students").orderByChild("id").equalTo(id).on("child_added", function(snapshot) {
-      return snapshot.val();
+  this.addCourse = function(course, success, failure) {
+    db.ref("courses").push(course)
+    .then(function(snapshot) {
+      success("Success");
     }, function(error) {
-      if(error) {
-        console.error(error);
-      } else {
-        console.log("Success");
-      }
+      failure(error);
     });
   };
 
-  // Does not work yet, is inserting as a sub-item
   this.updateStudent = function(id, student, callback, error) {
-    db.ref(`students/${id}`).update(set)
+    return db.ref(`students/${id}`).update(student)
     .then(function(res) {
       callback("Success");
-    })
-    .catch(function(err) {
-      error(err);
+    }, function(error) {
+      failure(error);
     });
   }
 
-
-  this.getCourseById = function(id){
-    return db.ref("courses").orderByChild("courseID").equalTo(id).on("child_added", function(snapshot) {
-      console.log(snapshot.key);
-      console.log(snapshot.val());
-      return snapshot.val();
-    }, function(error){
-      console.error(error);
+  this.updateCourse = function(id, course, callback, error) {
+    return db.ref(`course/${id}`).update(course)
+    .then(function(res) {
+      callback("Success");
+    }, function(error) {
+      failure(error);
     });
-  };
+  }
 
-  this.addCourse = function(course) {
-    db.ref("courses").push(course);
-  };
-
-  this.getCourses = function(){
-    return db.ref("courses").once("value").then(function(snapshot) {
-      return snapshot.val();
-    });
-  };
 });
