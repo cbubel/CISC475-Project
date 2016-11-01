@@ -1,5 +1,5 @@
 class CourseSection {
-    constructor(sectionID, instructor, startTime, endTime, days, numberOfStudents, undergradTAsNeeded, gradTAsNeeded, undergradLAsNeeded) {
+    constructor(sectionID="", instructor="", startTime="", endTime="", days, numberOfStudents, undergradTAsNeeded, gradTAsNeeded, undergradLAsNeeded) {
       this.sectionID = sectionID;
       this.instructor = instructor;
       this.startTime = startTime;
