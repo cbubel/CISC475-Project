@@ -3,57 +3,52 @@ var app = angular.module('baseApp');
 app.service("firebaseService", function() {
   var db = firebase.database();
 
-  this.getStudents = function() {
+  // Student Operations
+  var castSingleToStudent = function(obj) {
+    return new Student(
+      obj.isUndergrad,
+      obj.id,
+      obj.first_name,
+      obj.last_name,
+      obj.email,
+      obj.schedule,
+      obj.grades,
+      obj.tags
+    );
+  };
+
+  var castManyToStudent = function(objects) {
+    var students = [];
+    for(var key in objects) {
+      var obj = objects[key];
+      students.push(castSingleToStudent(obj));
+    }
+    return students;
+  }
+
+  this.getStudents = function(success, failure) {
     return db.ref("students").once("value")
     .then(function(snapshot) {
-      return snapshot.val();
-    });
-  };
-
-  this.getCourses = function(){
-    return db.ref("courses").once("value")
-    .then(function(snapshot) {
-      return snapshot.val();
-    });
-  };
-
-  this.getStudentById = function(id){
-    return db.ref(`students/${id}`).once("value")
-    .then(function(snapshot) {
-      return snapshot.val();
-    }, function(error) {
-      if(error) {
-        console.error(error);
-      } else {
-        console.log("Success");
-      }
-    });
-  };
-
-  this.getCourseById = function(id){
-    return db.ref(`courses/${id}`).once("value").then(function(snapshot) {
-      console.log(snapshot.val());
-      return snapshot.val();
-    }, function(error){
-      console.error(error);
-    });
-  };
-
-  // Model others after this
-  this.addStudent = function(student, success, failure) {
-    console.log(student);
-    db.ref("students").push(student)
-    .then(function(snapshot) {
-      success("Success");
+      success(snapshot.val());
     }, function(error) {
       failure(error);
     });
   };
 
-  this.addCourse = function(course, success, failure) {
-    db.ref("courses").push(course)
+  this.getStudentById = function(id, success, failure) {
+    return db.ref(`students/${id}`).once("value")
     .then(function(snapshot) {
-      success("Success");
+      var obj = snapshot.val();
+      success(castSingleToStudent(obj));
+    }, function(error) {
+      failure(error);
+    });
+  };
+
+  this.addStudent = function(student, success, failure) {
+    db.ref("students").push(student)
+    .then(function(snapshot) {
+      success("Successfully added student");
     }, function(error) {
       failure(error);
     });
@@ -66,7 +61,33 @@ app.service("firebaseService", function() {
     }, function(error) {
       failure(error);
     });
-  }
+  };
+
+  // Course Operations
+  this.getCourses = function(){
+    return db.ref("courses").once("value")
+    .then(function(snapshot) {
+      return snapshot.val();
+    });
+  };
+
+  this.getCourseById = function(id){
+    return db.ref(`courses/${id}`).once("value").then(function(snapshot) {
+      console.log(snapshot.val());
+      return snapshot.val();
+    }, function(error){
+      console.error(error);
+    });
+  };
+
+  this.addCourse = function(course, success, failure) {
+    db.ref("courses").push(course)
+    .then(function(snapshot) {
+      success("Success");
+    }, function(error) {
+      failure(error);
+    });
+  };
 
   this.updateCourse = function(id, course, callback, error) {
     return db.ref(`course/${id}`).update(course)
@@ -75,6 +96,6 @@ app.service("firebaseService", function() {
     }, function(error) {
       failure(error);
     });
-  }
+  };
 
 });
