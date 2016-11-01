@@ -3,7 +3,13 @@ var app = angular.module('baseApp');
 app.controller('editStudentCtrl', ['$scope', '$location', '$routeParams', 'firebaseService', function($scope, $location, $routeParams, firebaseService) {
   $scope.grades = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F'];
 
-  $scope.student = firebaseService.getStudentById($routeParams.student_id);
+  firebaseService.getStudentById($routeParams.student_id, function(student) {
+    $scope.student = student;
+    console.log(student);
+    $scope.$apply();
+  }, function(error) {
+    console.log(error);
+  });
 
   $scope.addCourse = function() {
     $scope.student.addCourseTaking(new CourseTaking());
@@ -30,7 +36,7 @@ app.controller('editStudentCtrl', ['$scope', '$location', '$routeParams', 'fireb
       delete grade["$$hashKey"];
     });
 
-    firebaseService.updateStudent($scope.student, function(result) {
+    firebaseService.updateStudent($routeParams.student_id, $scope.student, function(result) {
       toastr.success("Updated student");
       console.log(result);
     }, function(error) {
