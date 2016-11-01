@@ -81,10 +81,12 @@ app.service("firebaseService", function() {
     return courses;
   };
 
-  this.getCourses = function(){
+  this.getCourses = function(success, failure) {
     return db.ref("courses").once("value")
     .then(function(snapshot) {
-      return snapshot.val();
+      success(snapshot.val());
+    }, function(error) {
+      failure(error);
     });
   };
 

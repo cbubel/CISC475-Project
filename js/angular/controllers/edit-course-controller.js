@@ -1,7 +1,12 @@
 var app = angular.module('baseApp');
 
 app.controller('editCourseCtrl', ['$scope', '$location', '$routeParams', 'firebaseService', function($scope, $location, $routeParams, firebaseService) {
-  $scope.course = firebaseService.getCourseById($routeParams.course_id);
+  $scope.course = firebaseService.getCourseById($routeParams.course_id, function(course) {
+    $scope.course = course;
+    $scope.$apply();
+  }, function(error){
+    console.log(error);
+  });
 
   $scope.addSection = function() {
     $scope.course.addSection(new CourseSection());
@@ -53,5 +58,4 @@ app.controller('editCourseCtrl', ['$scope', '$location', '$routeParams', 'fireba
       }
 
   };
-
 }]);
