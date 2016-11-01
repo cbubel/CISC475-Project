@@ -9,6 +9,7 @@ app.controller('addCourseCtrl', ['$scope', 'firebaseService', function($scope, f
   };
 
   $scope.removeSection = function(idx) {
+    console.log(idx)
     $scope.course.removeSection(idx);
   };
 
