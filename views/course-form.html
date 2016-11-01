@@ -3,7 +3,7 @@
     <md-content layout="column">
         <md-input-container>
             <label>Course ID</label>
-            <input ng-model="course.courseID" />
+            <input ng-model="course.courseID" ng-required="true"/>
         </md-input-container>
 
         <div>
@@ -18,7 +18,7 @@
             <div layout="row">
               <md-input-container>
                   <label>Section ID</label>
-                  <input ng-model="section.sectionID" />
+                  <input ng-model="section.sectionID" ng-required="true" />
               </md-input-container>
               <md-input-container>
                   <label>Instructor</label>
@@ -26,11 +26,11 @@
               </md-input-container>
                 <md-input-container>
                     <label>Start Time</label>
-                    <input ng-model="section.startTime" />
+                    <input ng-model="section.startTime" ng-required="true"/>
                 </md-input-container>
                 <md-input-container>
                     <label>End Time</label>
-                    <input ng-model="section.endTime" />
+                    <input ng-model="section.endTime" ng-required="true"/>
                 </md-input-container>
             </div>
 
@@ -49,15 +49,15 @@
                 </md-input-container>
                 <md-input-container>
                     <label># Undergraduate TAs Needed</label>
-                    <input ng-model="section.undergradTAsNeeded" type="number">
+                    <input ng-model="section.undergradTAsNeeded" ng-required="true" type="number">
                 </md-input-container>
                 <md-input-container>
                     <label># Graduate TAs Needed</label>
-                    <input ng-model="section.gradTAsNeeded" type="number">
+                    <input ng-model="section.gradTAsNeeded" ng-required="true" type="number">
                 </md-input-container>
                 <md-input-container>
                     <label># Undergraduate LAs Needed</label>
-                    <input ng-model="section.undergradLAsNeeded" type="number">
+                    <input ng-model="section.undergradLAsNeeded" ng-required="true" type="number">
                 </md-input-container>
             </div>
 
