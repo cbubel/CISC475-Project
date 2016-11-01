@@ -18,7 +18,7 @@ app.controller('addCourseCtrl', ['$scope', 'firebaseService', function($scope, f
   }
 
   function areReqCourseFieldsFilled() {
-    if ($scope.course.CourseID === "") {
+    if ($scope.course.courseID === "") {
       return false;
     }
     else {
