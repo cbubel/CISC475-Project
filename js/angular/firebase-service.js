@@ -64,6 +64,23 @@ app.service("firebaseService", function() {
   };
 
   // Course Operations
+  var castSingleToCourse = function(obj) {
+    return new Course(
+      obj.courseID,
+      obj.courseTags,
+      obj.sections,
+    );
+  };
+
+  var castManyToCourse = function(objects) {
+    var courses = [];
+    for(var key in objects) {
+      var obj = objects[key];
+      courses.push(castSingleToCourse(obj));
+    }
+    return courses;
+  };
+
   this.getCourses = function(){
     return db.ref("courses").once("value")
     .then(function(snapshot) {
@@ -72,11 +89,12 @@ app.service("firebaseService", function() {
   };
 
   this.getCourseById = function(id){
-    return db.ref(`courses/${id}`).once("value").then(function(snapshot) {
-      console.log(snapshot.val());
-      return snapshot.val();
+    return db.ref(`courses/${id}`).once("value")
+    .then(function(snapshot) {
+      var obj = snapshot.val();
+      success(castSingleToCourse(obj));
     }, function(error){
-      console.error(error);
+      failure(error);
     });
   };
 
