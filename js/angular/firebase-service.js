@@ -64,18 +64,20 @@ app.service("firebaseService", function() {
   };
 
   // Course Operations
-  this.getCourses = function(){
+  this.getCourses = function(success, failure) {
     return db.ref("courses").once("value")
     .then(function(snapshot) {
-      return snapshot.val();
+      success(snapshot.val());
+    }, function(error) {
+      failure(error);
     });
   };
 
-  this.getCourseById = function(id){
+  this.getCourseById = function(id, success, failure) {
     return db.ref(`courses/${id}`).once("value").then(function(snapshot) {
-      console.log(snapshot.val());
-      return snapshot.val();
-    }, function(error){
+      success(snapshot.val());
+    }, function(error) {
+      failure(error);
       console.error(error);
     });
   };
