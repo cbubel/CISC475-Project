@@ -68,7 +68,7 @@ app.service("firebaseService", function() {
     return new Course(
       obj.courseID,
       obj.courseTags,
-      obj.sections,
+      obj.sections
     );
   };
 
