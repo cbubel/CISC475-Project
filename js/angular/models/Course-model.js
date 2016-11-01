@@ -8,4 +8,8 @@ class Course {
     addSection(section) {
       this.sections.push(section);
     }
+
+    removeSection(idx) {
+      this.sections.splice(idx, 1);
+    }
 }

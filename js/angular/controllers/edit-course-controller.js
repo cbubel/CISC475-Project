@@ -7,6 +7,10 @@ app.controller('editCourseCtrl', ['$scope', '$location', '$routeParams', 'fireba
     $scope.course.addSection(new CourseSection());
   };
 
+  $scope.removeSection = function(idx) {
+    $scope.course.removeSection(idx);
+  };
+
   $scope.submit = function() {
       $scope.course.sections.forEach(function(section) {
           delete section["$$hashKey"];
