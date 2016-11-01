@@ -1,0 +1,16 @@
+<h1>Courses</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Course ID</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="(key, course) in courses">
+          <td>{{course.courseID}}</td>
+          <td><a href="#/edit-course/{{key}}">Edit</a></td>
+        </tr>
+    </tbody>
+</table>

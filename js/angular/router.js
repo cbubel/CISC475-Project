@@ -21,6 +21,10 @@ app.config(function($routeProvider) {
     templateUrl : "views/add-course.html",
     controller: "addCourseCtrl"
   })
+  .when("/courses", {
+    templateUrl : "views/courses.html",
+    controller: "coursesCtrl"
+  })
   .when("/edit-course/:course_id", {
     templateUrl : "views/edit-course.html",
     controller: "editCourseCtrl"
