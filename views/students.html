@@ -5,12 +5,16 @@
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Email</th>
+            <th>Edit</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="student in students">
-            <td>{{student.first_name}}</td>
-            <td>{{student.last_name}}</td>
+        <tr ng-repeat="(key, student) in students">
+          <td>{{student.first_name}}</td>
+          <td>{{student.last_name}}</td>
+          <td>{{student.email}}</td>
+          <td><a href="#/edit-student/{{key}}">Edit</a></td>
         </tr>
     </tbody>
 </table>
