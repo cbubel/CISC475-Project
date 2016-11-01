@@ -32,10 +32,9 @@ app.controller('addStudentCtrl', ['$scope', 'firebaseService', function($scope, 
 
     firebaseService.addStudent($scope.student, function(result) {
       toastr.success("Added student");
-      console.log(result);
+      $scope.student = new Student();
     }, function(error) {
       toastr.error("Failed to add");
-      console.log(error);
     });
   };
 }]);

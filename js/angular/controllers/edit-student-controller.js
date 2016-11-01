@@ -38,6 +38,7 @@ app.controller('editStudentCtrl', ['$scope', '$location', '$routeParams', 'fireb
 
     firebaseService.updateStudent($routeParams.student_id, $scope.student, function(result) {
       toastr.success("Updated student");
+      $location.path("/students");
       console.log(result);
     }, function(error) {
       toastr.error("Failed to update");
