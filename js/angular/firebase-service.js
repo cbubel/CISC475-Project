@@ -110,7 +110,7 @@ app.service("firebaseService", function() {
   };
 
   this.updateCourse = function(id, course, callback, error) {
-    return db.ref(`course/${id}`).update(course)
+    return db.ref(`courses/${id}`).update(course)
     .then(function(res) {
       callback("Success");
     }, function(error) {

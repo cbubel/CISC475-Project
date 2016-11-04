@@ -40,25 +40,6 @@ app.controller('editCourseCtrl', ['$scope', '$location', '$routeParams', 'fireba
     return true;
   }
 
-  // $scope.submit = function() {
-  //     if (areReqFieldsFilled()) {
-  //       $scope.course.sections.forEach(function(section) {
-  //           delete section["$$hashKey"];
-  //       });
-  //       firebaseService.addCourse($scope.course, function(result) {
-  //         toastr.success("Updated Course");
-  //         console.log(result);
-  //       }, function(error) {
-  //         toastr.error("Failed to update");
-  //         console.log(error);
-  //       });
-  //     }
-  //     else {
-  //       toastr.error("Required Fields Not Filled");
-  //     }
-  //
-  // };
-
   $scope.submit = function() {
     $scope.course.id = parseInt($scope.course.id);
     firebaseService.updateCourse($routeParams.course_id, $scope.course, function(result) {
