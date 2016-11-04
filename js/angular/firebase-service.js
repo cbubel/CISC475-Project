@@ -90,7 +90,7 @@ app.service("firebaseService", function() {
     });
   };
 
-  this.getCourseById = function(id){
+  this.getCourseById = function(id, success, failure){
     return db.ref(`courses/${id}`).once("value")
     .then(function(snapshot) {
       var obj = snapshot.val();
