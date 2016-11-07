@@ -1,5 +1,5 @@
 class Student {
-  constructor(isUndergrad = true, id = "", first_name = "", last_name = "", email = "", schedule = [], grades = [], tags = []) {
+  constructor(isUndergrad = true, id = "", first_name = "", last_name = "", email = "", schedule = [], grades = [], tags = "") {
     this.isUndergrad = isUndergrad;
     this.id = id;
     this.first_name = first_name;

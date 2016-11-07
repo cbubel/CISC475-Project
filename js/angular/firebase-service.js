@@ -102,6 +102,7 @@ app.service("firebaseService", function() {
   };
 
   this.addCourse = function(course, success, failure) {
+    console.log(course);
     db.ref("courses").push(course)
     .then(function(snapshot) {
       success("Success");

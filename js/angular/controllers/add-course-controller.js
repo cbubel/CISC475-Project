@@ -1,7 +1,6 @@
 var app = angular.module('baseApp');
 
 app.controller('addCourseCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
-
   $scope.course = new Course();
 
   $scope.addSection = function() {
@@ -9,7 +8,6 @@ app.controller('addCourseCtrl', ['$scope', 'firebaseService', function($scope, f
   };
 
   $scope.removeSection = function(idx) {
-    console.log(idx)
     $scope.course.removeSection(idx);
   };
 
@@ -37,11 +35,16 @@ app.controller('addCourseCtrl', ['$scope', 'firebaseService', function($scope, f
     return true;
   }
 
+  var cleanUp = function() {
+    $scope.course.sections.forEach(function(section) {
+        delete section["$$hashKey"];
+    });
+  };
+
   $scope.submit = function() {
       if (areReqFieldsFilled()) {
-        $scope.course.sections.forEach(function(section) {
-            delete section["$$hashKey"];
-        });
+        cleanUp();
+        
         firebaseService.addCourse($scope.course, function(result) {
           toastr.success("Added Course");
           console.log(result);
@@ -53,7 +56,6 @@ app.controller('addCourseCtrl', ['$scope', 'firebaseService', function($scope, f
       else {
         toastr.error("Required Fields Not Filled");
       }
-
   };
 
 }]);

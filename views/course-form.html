@@ -1,73 +1,112 @@
-<div class="md-inline-form">
-  <md-content class="angular-material-form" layout="column" layout-padding>
-    <md-input-container>
-      <label>Course ID</label>
-      <input ng-model="course.courseID" ng-required="true"/>
-    </md-input-container>
+<form>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+		    <label>Course ID</label>
+		    <input type="text" class="form-control" placeholder="Course ID" ng-model="course.courseID">
+		  </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+				<label>Tags</label>
+				<input type="text" class="form-control" placeholder="Tags (comma separated)" ng-model="course.courseTags">
+			</div>
+    </div>
+  </div>
 
-    <div>
-      <h1 class="md-title">Course Tags</h1><br>
-      <md-chips ng-model="course.courseTags" placeholder="Enter a tag" delete-button-label="Remove Tag" delete-hint="Press delete to remove tag" secondary-placeholder="+Tag"></md-chips>
+  <div><label>Section Information</label> - <span class="adder-link" ng-click="addSection()">Add Section</span></div>
+  <div ng-repeat="section in course.sections track by $index">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Section ID</label>
+          <input type="text" class="form-control" placeholder="Section ID" ng-model="section.sectionID">
+        </div>
+
+        <div class="form-group">
+          <label>Start Time</label>
+          <input type="text" class="form-control" placeholder="Start Time" ng-model="section.startTime">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Instructor</label>
+          <input type="text" class="form-control" placeholder="Instructor" ng-model="section.instructor">
+        </div>
+
+        <div class="form-group">
+          <label>End Time</label>
+          <input type="text" class="form-control" placeholder="End Time" ng-model="section.endTime">
+        </div>
+      </div>
     </div>
 
-    <h1 class="md-title">Section Information</h1><br>
-
-    <md-content ng-repeat="section in course.sections track by $index">
-      <div layout="row">
-        <md-input-container>
-          <label>Section ID</label>
-          <input ng-model="section.sectionID" ng-required="true" />
-        </md-input-container>
-        <md-input-container>
-          <label>Instructor</label>
-          <input ng-model="section.instructor" />
-        </md-input-container>
-        <md-input-container>
-          <label>Start Time</label>
-          <input ng-model="section.startTime" ng-required="true"/>
-        </md-input-container>
-        <md-input-container>
-          <label>End Time</label>
-          <input ng-model="section.endTime" ng-required="true"/>
-        </md-input-container>
-      </div>
-
-      <div layout="row">
-        <md-checkbox ng-model="section.days.M" aria-label="Checkbox M">Monday</md-checkbox>
-        <md-checkbox ng-model="section.days.T" aria-label="Checkbox T">Tuesday</md-checkbox>
-        <md-checkbox ng-model="section.days.W" aria-label="Checkbox W">Wednesday</md-checkbox>
-        <md-checkbox ng-model="section.days.R" aria-label="Checkbox R">Thursday</md-checkbox>
-        <md-checkbox ng-model="section.days.F" aria-label="Checkbox F">Friday</md-checkbox>
-      </div>
-
-      <div layout="column" style="width:300px">
-        <md-input-container>
-          <label>Number of Students in Section</label>
-          <input ng-model="section.numberOfStudents" type="number">
-        </md-input-container>
-        <md-input-container>
-          <label># Undergraduate TAs Needed</label>
-          <input ng-model="section.undergradTAsNeeded" ng-required="true" type="number">
-        </md-input-container>
-        <md-input-container>
-          <label># Graduate TAs Needed</label>
-          <input ng-model="section.gradTAsNeeded" ng-required="true" type="number">
-        </md-input-container>
-        <md-input-container>
-          <label># Undergraduate LAs Needed</label>
-          <input ng-model="section.undergradLAsNeeded" ng-required="true" type="number">
-        </md-input-container>
-      </div>
-
-      <md-button ng-click="removeSection($index)"><span>Remove Section</span></md-button>
-
-    </md-content>
-
-    <md-button ng-click="addSection()"><span>Add Section</span></md-button>
-
+    <label>Days</label>
     <br>
+    <div class="checkbox-inline">
+      <label>
+        <input type="checkbox" ng-model="section.days.M">
+        Monday
+      </label>
+    </div>
+    <div class="checkbox-inline">
+      <label>
+        <input type="checkbox" ng-model="section.days.T">
+        Tuesday
+      </label>
+    </div>
+    <div class="checkbox-inline">
+      <label>
+        <input type="checkbox" ng-model="section.days.W">
+        Wednesday
+      </label>
+    </div>
+    <div class="checkbox-inline">
+      <label>
+        <input type="checkbox" ng-model="section.days.R">
+        Thursday
+      </label>
+    </div>
+    <div class="checkbox-inline">
+      <label>
+        <input type="checkbox" ng-model="section.days.F">
+        Friday
+      </label>
+    </div>
 
-    <md-button ng-click="submit()" class="md-raised md-primary">Submit</md-button>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label># Students in Section</label>
+          <input type="number" class="form-control" placeholder="# Students in Section" ng-model="section.numberOfStudents">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label># Undergraduate TAs Needed</label>
+          <input type="number" class="form-control" placeholder="# Undergraduate TAs Needed" ng-model="section.undergradTAsNeeded">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label># Undergraduate LAs Needed</label>
+          <input type="number" class="form-control" placeholder="# Undergraduate LAs Needed" ng-model="section.undergradLAsNeeded">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label># Graduate TAs Needed</label>
+          <input type="number" class="form-control" placeholder="# Graduate TAs Needed" ng-model="section.gradTAsNeeded">
+        </div>
+      </div>
+    </div>
 
-  </md-content>
-</div>
+    <div class="form-group">
+			<button class="btn btn-danger" ng-click="removeSection($index)">Remove Section</button>
+		</div>
+  </div>
+
+  <div class="form-group">
+  	<button type="submit" class="btn btn-primary" ng-click="submit()">Submit</button>
+  </div>
+</form>
