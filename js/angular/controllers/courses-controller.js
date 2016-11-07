@@ -6,7 +6,7 @@ app.controller('coursesCtrl', ['$scope', 'firebaseService', function($scope, fir
   $scope.prettifyDays = function(days) {
     var res = "";
     for(var day in days) {
-      res += day.slice(0, 1).toUpperCase();
+      res += day.toUpperCase();
     }
     return res;
   }
