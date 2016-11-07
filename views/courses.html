@@ -18,7 +18,8 @@
           <h4>Section {{section.sectionID}} - {{section.instructor}} - {{section.numberOfStudents}} students</h4>
         </div>
         <div class="col-md-6 align-right">
-          {{section.startTime}} - {{section.endTime}}
+          {{prettifyDays(section.days)}}
+          ({{section.startTime}} - {{section.endTime}})
         </div>
       </div>
         <p><strong>Grad TAs Needed</strong>: {{section.gradTAsNeeded}}</p>
