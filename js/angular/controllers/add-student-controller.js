@@ -22,7 +22,6 @@ app.controller('addStudentCtrl', ['$scope', 'firebaseService', function($scope, 
   };
 
   $scope.submit = function() {
-    $scope.student.id = parseInt($scope.student.id);
     $scope.student.schedule.forEach(function(course) {
       delete course["$$hashKey"];
     });
