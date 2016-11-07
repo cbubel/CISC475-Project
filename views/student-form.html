@@ -13,7 +13,7 @@
 
 		<md-input-container>
 			<label>Student ID</label>
-			<input type="number" ng-model="student.id" />
+			<input ng-model="student.id" />
 		</md-input-container>
 
 		<md-input-container>
@@ -45,11 +45,11 @@
 				</md-input-container>
 			</div>
 			<div layout="row">
-				<md-checkbox ng-model="course.days.monday" aria-label="Checkbox M">Monday</md-checkbox>
-				<md-checkbox ng-model="course.days.tuesday" aria-label="Checkbox T">Tuesday</md-checkbox>
-				<md-checkbox ng-model="course.days.wednesday" aria-label="Checkbox W">Wednesday</md-checkbox>
-				<md-checkbox ng-model="course.days.thursday" aria-label="Checkbox R">Thursday</md-checkbox>
-				<md-checkbox ng-model="course.days.friday" aria-label="Checkbox F">Friday</md-checkbox>
+				<md-checkbox ng-model="course.days.M" aria-label="Checkbox M">Monday</md-checkbox>
+				<md-checkbox ng-model="course.days.T" aria-label="Checkbox T">Tuesday</md-checkbox>
+				<md-checkbox ng-model="course.days.W" aria-label="Checkbox W">Wednesday</md-checkbox>
+				<md-checkbox ng-model="course.days.R" aria-label="Checkbox R">Thursday</md-checkbox>
+				<md-checkbox ng-model="course.days.F" aria-label="Checkbox F">Friday</md-checkbox>
 			</div>
 			<div layout="row">
 				<md-button ng-click="removeCourse($index)"><span>Remove Course</span></md-button>
