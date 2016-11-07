@@ -21,17 +21,27 @@ app.controller('addStudentCtrl', ['$scope', 'firebaseService', function($scope, 
     $scope.student.removeGrade(idx);
   };
 
-  $scope.submit = function() {
+  var cleanUp = function() {
     $scope.student.schedule.forEach(function(course) {
       delete course["$$hashKey"];
     });
     $scope.student.grades.forEach(function(grade) {
       delete grade["$$hashKey"];
     });
+    var tags = $scope.student.tags.split(",");
+    $scope.student.tags = [];
+    tags.forEach(function(tag) {
+      $scope.student.tags.push(tag.replace(/\s+/g, ""));
+    });
+  };
+
+  $scope.submit = function() {
+    cleanUp();
 
     firebaseService.addStudent($scope.student, function(result) {
       toastr.success("Added student");
       $scope.student = new Student();
+      $scope.$apply();
     }, function(error) {
       toastr.error("Failed to add");
     });
