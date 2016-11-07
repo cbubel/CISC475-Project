@@ -46,6 +46,7 @@ app.service("firebaseService", function() {
   };
 
   this.addStudent = function(student, success, failure) {
+    console.log(student);
     db.ref("students").push(student)
     .then(function(snapshot) {
       success("Successfully added student");
