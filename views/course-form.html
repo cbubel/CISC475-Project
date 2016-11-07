@@ -14,7 +14,7 @@
     </div>
   </div>
 
-  <div><label>Section Information</label> - <span class="adder-link" ng-click="addSection()">Add Section</span></div>
+  <div class="form-group"><label>Section Information</label> - <span class="adder-link" ng-click="addSection()">Add Section</span></div>
   <div ng-repeat="section in course.sections track by $index">
     <div class="row">
       <div class="col-md-6">
@@ -41,37 +41,39 @@
       </div>
     </div>
 
-    <label>Days</label>
-    <br>
-    <div class="checkbox-inline">
-      <label>
-        <input type="checkbox" ng-model="section.days.M">
-        Monday
-      </label>
-    </div>
-    <div class="checkbox-inline">
-      <label>
-        <input type="checkbox" ng-model="section.days.T">
-        Tuesday
-      </label>
-    </div>
-    <div class="checkbox-inline">
-      <label>
-        <input type="checkbox" ng-model="section.days.W">
-        Wednesday
-      </label>
-    </div>
-    <div class="checkbox-inline">
-      <label>
-        <input type="checkbox" ng-model="section.days.R">
-        Thursday
-      </label>
-    </div>
-    <div class="checkbox-inline">
-      <label>
-        <input type="checkbox" ng-model="section.days.F">
-        Friday
-      </label>
+    <div class="form-group">
+      <label>Days</label>
+      <br>
+      <div class="checkbox-inline">
+        <label>
+          <input type="checkbox" ng-model="section.days.M">
+          Monday
+        </label>
+      </div>
+      <div class="checkbox-inline">
+        <label>
+          <input type="checkbox" ng-model="section.days.T">
+          Tuesday
+        </label>
+      </div>
+      <div class="checkbox-inline">
+        <label>
+          <input type="checkbox" ng-model="section.days.W">
+          Wednesday
+        </label>
+      </div>
+      <div class="checkbox-inline">
+        <label>
+          <input type="checkbox" ng-model="section.days.R">
+          Thursday
+        </label>
+      </div>
+      <div class="checkbox-inline">
+        <label>
+          <input type="checkbox" ng-model="section.days.F">
+          Friday
+        </label>
+      </div>
     </div>
 
     <div class="row">
