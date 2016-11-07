@@ -41,7 +41,6 @@ app.controller('editCourseCtrl', ['$scope', '$location', '$routeParams', 'fireba
   }
 
   $scope.submit = function() {
-    $scope.course.courseID = parseInt($scope.course.courseID);
     firebaseService.updateCourse($routeParams.course_id, $scope.course, function(result) {
       toastr.success("Updated course");
       $location.path("/courses");
