@@ -44,9 +44,11 @@ app.controller('addCourseCtrl', ['$scope', 'firebaseService', function($scope, f
   $scope.submit = function() {
       if (areReqFieldsFilled()) {
         cleanUp();
-        
+
         firebaseService.addCourse($scope.course, function(result) {
           toastr.success("Added Course");
+          $scope.course = new Course();
+          $scope.$apply();
           console.log(result);
         }, function(error) {
           toastr.error("Failed to add");
