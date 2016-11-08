@@ -41,13 +41,18 @@ app.controller('editCourseCtrl', ['$scope', '$location', '$routeParams', 'fireba
   }
 
   $scope.submit = function() {
-    firebaseService.updateCourse($routeParams.course_id, $scope.course, function(result) {
-      toastr.success("Updated course");
-      $location.path("/courses");
-      console.log(result);
-    }, function(error) {
-      toastr.error("Failed to update");
-      console.log(error);
-    });
+    if (areReqFieldsFilled()) {
+      firebaseService.updateCourse($routeParams.course_id, $scope.course, function(result) {
+        toastr.success("Updated course");
+        $location.path("/courses");
+        console.log(result);
+      }, function(error) {
+        toastr.error("Failed to update");
+        console.log(error);
+      });
+    }
+    else {
+      toastr.error("Required Fields Not Filled");
+    }
   };
 }]);

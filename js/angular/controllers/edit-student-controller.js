@@ -27,22 +27,41 @@ app.controller('editStudentCtrl', ['$scope', '$location', '$routeParams', 'fireb
     $scope.student.removeGrade(idx);
   };
 
-  $scope.submit = function() {
-    $scope.student.id = parseInt($scope.student.id);
-    $scope.student.schedule.forEach(function(course) {
-      delete course["$$hashKey"];
-    });
-    $scope.student.grades.forEach(function(grade) {
-      delete grade["$$hashKey"];
-    });
+  function areReqFieldsFilled() {
+      return !($scope.student.id == "" || $scope.student.schedule.length == 0 || isMissingScheduleInformation());
+  };
 
-    firebaseService.updateStudent($routeParams.student_id, $scope.student, function(result) {
-      toastr.success("Updated student");
-      $location.path("/students");
-      console.log(result);
-    }, function(error) {
-      toastr.error("Failed to update");
-      console.log(error);
-    });
+  function isMissingScheduleInformation() {
+      for (var i = 0; i < $scope.student.schedule.length; i++) {
+          var course = $scope.student.schedule[i];
+          if (course.id == "" || course.start_time == "" || course.end_time == "") {
+              return true;
+          }
+      }
+      return false;
+  };
+
+  $scope.submit = function() {
+
+    if (areReqFieldsFilled()) {
+      $scope.student.id = parseInt($scope.student.id);
+      $scope.student.schedule.forEach(function(course) {
+        delete course["$$hashKey"];
+      });
+      $scope.student.grades.forEach(function(grade) {
+        delete grade["$$hashKey"];
+      });
+      firebaseService.updateStudent($routeParams.student_id, $scope.student, function(result) {
+        toastr.success("Updated student");
+        $location.path("/students");
+        console.log(result);
+      }, function(error) {
+        toastr.error("Failed to update");
+        console.log(error);
+      });
+    }
+    else {
+        toastr.error("Required Fields Not Full");
+    }
   };
 }]);
