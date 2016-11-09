@@ -42,9 +42,8 @@ app.controller('editStudentCtrl', ['$scope', '$location', '$routeParams', 'fireb
   };
 
   $scope.submit = function() {
-
     if (areReqFieldsFilled()) {
-      $scope.student.id = parseInt($scope.student.id);
+      // $scope.student.id = parseInt($scope.student.id);
       $scope.student.schedule.forEach(function(course) {
         delete course["$$hashKey"];
       });
