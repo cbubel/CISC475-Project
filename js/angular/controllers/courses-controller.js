@@ -18,4 +18,12 @@ app.controller('coursesCtrl', ['$scope', 'firebaseService', function($scope, fir
   }, function(error) {
     console.log(error);
   });
+
+  firebaseService.getStudents(function(students) {
+    $scope.students = students;
+    console.log(students);
+    $scope.$apply();
+  }, function(error) {
+    console.log(error);
+  });
 }]);
