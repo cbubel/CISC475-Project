@@ -10,69 +10,6 @@
       <div class="col-md-6 align-right">
         <a href="#/edit-course/{{key}}">Edit</a>
       </div>
-      <!-- Trigger the modal with a button -->
-      <br>
-      <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">View Matches</button>
-      <!-- Modal -->
-      <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">{{course.courseID}}</h4>
-            </div>
-            <form action="" class="navbar-form navbar-left">
-               <div class="input-group">
-                   <input type="Search" placeholder="Search tags..." class="form-control" />
-                   <div class="input-group-btn">
-                       <button class="btn btn-info">
-                       <span class="glyphicon glyphicon-search"></span>
-                       </button>
-                   </div>
-               </div>
-            </form>
-            <div class="modal-body">
-              <table class="table table-striped">
-                  <thead>
-                      <tr>
-                          <th>First Name</th>
-                          <th>Last Name</th>
-                          <th>Email</th>
-                          <th>Tags</th>
-                          <th>Hide</th>
-                          <th>Assign</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                        <tr ng-repeat="(key, student) in students">
-                          <td>{{student.first_name}}</td>
-                          <td>{{student.last_name}}</td>
-                          <td>{{student.email}}</td>
-                          <td>{{student.tags}}</td>
-                        <td>
-                          <a href="#">
-                            <span class="glyphicon glyphicon-remove align center"></span>
-                          </a>
-                        </td>
-                        <td>
-                          <button id="assignStudent" class="btn btn-default btn-xs">
-                            Assign
-                          </button>
-                        </td>
-                      </tr>
-                  </tbody>
-              </table>
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-
-        </div>
-      </div>
     </div>
   </div>
   <div class="panel-body">
@@ -86,6 +23,7 @@
         <th>Grad TAs</th>
         <th>Undergrad TAs</th>
         <th>Undergrad LAs</th>
+        <th>Matches</th>
       </tr>
       <tr ng-repeat="section in course.sections">
         <td>{{section.sectionID}}</td>
@@ -96,8 +34,68 @@
         <td>{{section.gradTAsNeeded}}</td>
         <td>{{section.undergradTAsNeeded}}</td>
         <td>{{section.undergradLAsNeeded}}</td>
+        <td ng-init="sec = section">
+          <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" ng-click="launchModal(course, section)">View Matches</button>
+        </td>
       </tr>
     </table>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">{{currentCourse.courseID}} {{currentSection.sectionID}}</h4>
+          </div>
+          <form action="" class="navbar-form navbar-left">
+             <div class="input-group">
+                 <input type="Search" placeholder="Search tags..." class="form-control" />
+                 <div class="input-group-btn">
+                     <button class="btn btn-info">
+                     <span class="glyphicon glyphicon-search"></span>
+                     </button>
+                 </div>
+             </div>
+          </form>
+          <div class="modal-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Tags</th>
+                        <th>Hide</th>
+                        <th>Assign</th>
+                    </tr>
+                </thead>
+                <tbody>
+                      <tr ng-repeat="(key, student) in currentStudents">
+                        <td>{{student.first_name}}</td>
+                        <td>{{student.last_name}}</td>
+                        <td>{{student.email}}</td>
+                        <td>{{student.tags}}</td>
+                      <td>
+                        <a href="" ng-click="removeStudent(key)">
+                          <span class="glyphicon glyphicon-remove align center"></span>
+                        </a>
+                      </td>
+                      <td>
+                        <button id="assignStudent" class="btn btn-default btn-xs">
+                          Assign
+                        </button>
+                      </td>
+                    </tr>
+                </tbody>
+            </table>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
   </div>
 </div>

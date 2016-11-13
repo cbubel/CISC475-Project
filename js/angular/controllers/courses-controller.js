@@ -11,6 +11,18 @@ app.controller('coursesCtrl', ['$scope', 'firebaseService', function($scope, fir
     return res;
   }
 
+  $scope.launchModal = function(course, section) {
+    $scope.currentCourse = course;
+    $scope.currentSection = section;
+    $scope.currentStudents = JSON.parse(JSON.stringify($scope.students));
+    //$scope.$apply();
+  }
+
+  $scope.removeStudent = function(student) {
+    delete $scope.currentStudents[student];
+    console.log($scope.students);
+  }
+
   firebaseService.getCourses(function(courses) {
     $scope.courses = courses;
     console.log(courses);
