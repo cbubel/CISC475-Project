@@ -1,20 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="baseApp">
 <h1>Students</h1>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
+<body>
+  <div ng-controller="studentsCtrl">
+    <div>
+	  <table class="table table-hover table-condensed table-striped">
+        <thead class="levelOne">
+          <tr>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
             <th>Edit</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="(key, student) in students">
-          <td>{{student.first_name}}</td>
-          <td>{{student.last_name}}</td>
-          <td>{{student.email}}</td>
-          <td><a href="#/edit-student/{{key}}">Edit</a></td>
-        </tr>
-    </tbody>
-</table>
+		  </tr>
+		</thead>
+		<tbody data-ng-repeat="student in students" data-ng-switch on="DataCollapse[$index]"}>
+		<tr class="clickableRow" title="Click to toggle collapse/expand extra student info." data-ng-click="selectTableRow($index, student.id)" >
+		  <td>{{student.first_name}}</td>
+		  <td>{{student.last_name}}</td>
+		  <td>{{student.email}}</td>
+		  <td><a href="#/edit-student/{{key}}">Edit</a></td>
+		</tr>
+		<tr data-ng-switch-when="true">
+          <td colspan="9">
+            <div class="span9">
+              <div class="pull-right">
+                <table class="table table-hover table-condensed table-striped">
+                  <thead class="levelTwo">
+                    <tr>
+					  <th></th>
+                      <th>Undergrad/Grad</th>
+                      <th>Schedule</th>
+                      <th>Grades</th>
+                      <th>Tags</th>
+                    </tr>
+				  </thead>
+				  <tbody>
+					<td ng-if="student.isUndergrad">Undergraduate</td> <!--This is where sub-data goes-->
+				    <td ng-if="!student.isUndergrad">Graduate</td>
+					<td>{{student.schedule}}</td>
+					<td>{{student.grades}}</td>
+					<td>{{student.tags}}
+				  </tbody>
+				</table>
+			  </div>
+			</div>
+		  </td>
+		</tr>
+	    </tbody>
+	  </table>
+	</div>
+	<!-- End of table -->
+  </div>
+</body
+</html>
