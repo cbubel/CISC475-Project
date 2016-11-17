@@ -1,6 +1,8 @@
 var app = angular.module('baseApp');
 
-app.controller('studentsCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
+// This js file is used for showing the firebase database on students.html
+
+app.controller('tableCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
   $scope.students = {};
 
   firebaseService.getStudents(function(students) {
@@ -11,7 +13,7 @@ app.controller('studentsCtrl', ['$scope', 'firebaseService', function($scope, fi
     console.log(error);
   });
   
-  // This function is used to return a boolean to see if student.schedule contains a certain day
+	  // This function is used to return a boolean to see if student.schedule contains a certain day
   $scope.writeBusyDays = function(curr_class) {
 	  var daysStr = "";
 	  for (var k in curr_class.days) {
@@ -68,10 +70,13 @@ app.controller('studentsCtrl', ['$scope', 'firebaseService', function($scope, fi
 		  daysStr = daysStr.join("");
 	  }
 	  
-	  console.log(curr_class);
-	  
 	  return daysStr;
   };
+  
+  
+  $scope.makeTagArray = function(tags) {
+	  return tags.split(",");
+  }
   
   
   // The following code is used for expanding the tables in students.html

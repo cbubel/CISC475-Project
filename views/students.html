@@ -1,56 +1,102 @@
 <!DOCTYPE html>
 <html ng-app="baseApp">
-<h1>Students</h1>
-
-<body>
-  <div ng-controller="studentsCtrl">
-    <div>
-	  <table class="table table-hover table-condensed table-striped">
-        <thead class="levelOne">
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Edit</th>
-		  </tr>
-		</thead>
-		<tbody data-ng-repeat="student in students" data-ng-switch on="DataCollapse[$index]"}>
-		<tr class="clickableRow" title="Click to toggle collapse/expand extra student info." data-ng-click="selectTableRow($index, student.id)" >
-		  <td>{{student.first_name}}</td>
-		  <td>{{student.last_name}}</td>
-		  <td>{{student.email}}</td>
-		  <td><a href="#/edit-student/{{key}}">Edit</a></td>
-		</tr>
-		<tr data-ng-switch-when="true">
-          <td colspan="9">
-            <div class="span9">
-              <div class="pull-right">
-                <table class="table table-hover table-condensed table-striped">
-                  <thead class="levelTwo">
-                    <tr>
-					  <th></th>
-                      <th>Undergrad/Grad</th>
-                      <th>Schedule</th>
-                      <th>Grades</th>
-                      <th>Tags</th>
-                    </tr>
-				  </thead>
-				  <tbody>
-					<td ng-if="student.isUndergrad">Undergraduate</td> <!--This is where sub-data goes-->
-				    <td ng-if="!student.isUndergrad">Graduate</td>
-					<td>{{student.schedule}}</td>
-					<td>{{student.grades}}</td>
-					<td>{{student.tags}}
-				  </tbody>
-				</table>
-			  </div>
-			</div>
-		  </td>
-		</tr>
-	    </tbody>
-	  </table>
-	</div>
-	<!-- End of table -->
-  </div>
-</body
+  <h1>Students</h1>
+  <body>
+    <div ng-controller="tableCtrl">
+      <div>
+        <table class="table table-hover table-condensed table-striped">
+          <thead class="levelOne">
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody data-ng-repeat="student in students" data-ng-switch on="DataCollapse[$index]">
+            <tr class="clickableRow" title="Click to toggle collapse/expand extra student info." data-ng-click="selectTableRow($index, student.id)" >
+              <td>{{student.first_name}}</td>
+              <td>{{student.last_name}}</td>
+              <td>{{student.email}}</td>
+              <td><a href="#/edit-student/{{key}}">Edit</a></td>
+            </tr>
+            <tr data-ng-switch-when="true">
+              <td ng-if="student.isUndergrad" style="font-weight:bold">Undergraduate</td>
+              <!--This is where sub-data goes-->
+              <td ng-if="!student.isUndergrad" style="font-weight:bold">Graduate</td>
+            <tr data-ng-switch-when="true">
+              <td colspan="9" style="font-weight:bold">
+                Schedule
+                <div class="span12">
+                  <div class="pull-left">
+                    <table class="table table-hover table-condensed table-striped">
+                      <thead class="levelTwo">
+                        <tr>
+                          <th>Course ID</th>
+                          <th>Days</th>
+                          <th>Start Time</th>
+                          <th>End Time</th>
+                        </tr>
+                      </thead>
+                      <tbody data-ng-repeat="class in student.schedule">
+                        <tr>
+                          <td>{{class.id}}</td>
+                          <td>{{writeBusyDays(class)}}</td>
+                          <td>{{class.start_time}}</td>
+                          <td>{{class.end_time}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr data-ng-switch-when="true">
+              <td colspan="9" style="font-weight:bold">
+                Grades
+                <div class="span9">
+                  <div class="pull-left">
+                    <table class="table table-hover table-condensed table-striped">
+                      <thead class="levelTwo">
+                        <tr>
+                          <th>Course ID</th>
+                          <th>Grade</th>
+                        </tr>
+                      </thead>
+                      <tbody data-ng-repeat="grade in student.grades">
+                        <tr>
+                          <td>{{grade.id}}</td>
+                          <td>{{grade.letter_grade}}
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr data-ng-switch-when="true">
+              <td colspan="9" style="font-weight:bold">
+                Tags
+                <div class="span9">
+                  <div class="pull-left">
+                    <table class="table table-hover table-condensed table-striped">
+                      <thead class="levelTwo" data-ng-repeat="tag in makeTagArray(student.tags)">
+                        <tr>
+                          <td>{{tag}}</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- End of table -->
+    </div>
+    </body
 </html>
