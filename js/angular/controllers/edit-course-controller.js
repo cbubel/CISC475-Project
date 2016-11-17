@@ -33,7 +33,7 @@ app.controller('editCourseCtrl', ['$scope', '$location', '$routeParams', 'fireba
     for (var i = 0; i < $scope.course.sections.length; i++) {
       var section = $scope.course.sections[i];
       if (section.sectionID === "" || section.instructor === "" || section.startTime === "" || section.endTime === "" ||
-          section.undergradTAsNeeded === 0 || section.gradTAsNeeded === 0 || section.undergradLAsNeeded === 0) {
+          section.undergradTAsNeeded < 0 || section.gradTAsNeeded < 0 || section.undergradLAsNeeded < 0) {
             return false;
       }
     }
