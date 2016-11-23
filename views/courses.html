@@ -1,14 +1,14 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <h1>Courses</h1>
 
-<div class="panel panel-default" ng-repeat="(key, course) in courses">
+<div class="panel panel-default" ng-repeat="course in courses">
   <div class="panel-heading">
     <div class="row">
       <div class="col-md-6">
         <h3 class="panel-title">{{course.courseID}}</h3>
       </div>
       <div class="col-md-6 align-right">
-        <a href="#/edit-course/{{key}}">Edit</a>
+        <a href="#/edit-course/{{course.firebaseId}}">Edit</a>
       </div>
     </div>
   </div>

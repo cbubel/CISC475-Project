@@ -70,19 +70,21 @@ app.service("firebaseService", function() {
 
   /* COURSE OPERATIONS */
 
-  var castSingleToCourse = function(obj) {
-    return new Course(
+  var castSingleToCourse = function(obj, key) {
+    var c = new Course(
       obj.courseID,
       obj.courseTags,
       obj.sections
     );
+    c.firebaseId = key;
+    return c;
   };
 
   var castManyToCourse = function(objects) {
     var courses = [];
     for(var key in objects) {
       var obj = objects[key];
-      courses.push(castSingleToCourse(obj));
+      courses.push(castSingleToCourse(obj, key));
     }
     return courses;
   };
@@ -90,7 +92,7 @@ app.service("firebaseService", function() {
   this.getCourses = function(success, failure) {
     return db.ref("courses").once("value")
     .then(function(snapshot) {
-      success(snapshot.val());
+      success(castManyToCourse(snapshot.val()));
     }, function(error) {
       failure(error);
     });
@@ -127,12 +129,27 @@ app.service("firebaseService", function() {
 
   /* ASSIGNMENT OPERATIONS */
 
+  var assignmentObjectsToArray = function(assignments) {
+    var ret_assignments = [];
+    for(var key in assignments) {
+      var a = assignments[key];
+      a.firebaseId = key;
+      ret_assignments.push(a);
+    }
+    return ret_assignments;
+  };
+
   // adds the given student to the course's candidate choices
   // takes in the firebase id of the student and course
-  this.addCandidateAssignment = function(studentID, courseID, success, failure) {
-    db.ref(`assignments/${courseID}/candidates`).push(studentID)
+  this.addCandidateAssignment = function(studentID, courseID, section, success, failure) {
+    var data = {
+      section: section,
+      studentId: studentID
+    };
+
+    db.ref(`assignments/${courseID}/candidates`).push(data)
     .then(function(snapshot) {
-      success("Successfully added student");
+      success(snapshot.path.o[3]);
     }, function(error) {
       failure(error);
     });
@@ -140,7 +157,12 @@ app.service("firebaseService", function() {
 
   // adds the given student to the course's final choices
   // takes in the firebase id of the student and course
-  this.addFinalAssignment = function(studentID, courseID, success, failure) {
+  this.addFinalAssignment = function(studentID, courseID, section, success, failure) {
+    var data = {
+      section: section,
+      studentId: studentID
+    };
+
     db.ref(`assignments/${courseID}/final`).push(studentID)
     .then(function(snapshot) {
       success("Successfully added student");
@@ -153,7 +175,7 @@ app.service("firebaseService", function() {
   this.getCandidates = function(courseID, success, failure) {
     return db.ref(`assignments/${courseID}/candidates`).once("value")
     .then(function(snapshot) {
-      success(snapshot.val());
+      success(assignmentObjectsToArray(snapshot.val()));
     }, function(error) {
       failure(error);
     });
@@ -163,7 +185,7 @@ app.service("firebaseService", function() {
   this.getFinalChoice = function(courseID, success, failure) {
     return db.ref(`assignments/${courseID}/final`).once("value")
     .then(function(snapshot) {
-      success(snapshot.val());
+      success(assignmentObjectsToArray(snapshot.val()));
     }, function(error) {
       failure(error);
     });
@@ -186,7 +208,7 @@ app.service("firebaseService", function() {
   this.removeCandidate = function(firebaseID, courseID, success, failure) {
     db.ref(`assignments/${courseID}/candidates/${firebaseID}`).remove()
     .then(function(snapshot) {
-      success("Successfully added student");
+      success("Successfully removed student");
     }, function(error) {
       failure(error);
     });
@@ -194,10 +216,10 @@ app.service("firebaseService", function() {
 
   // Will remove student from course's final field. Must take in the firebase ID
   // of the assignment (not the student's ID), and the firebase ID of the course
-  this.removeCandidate = function(firebaseID, courseID, success, failure) {
+  this.removeFinal = function(firebaseID, courseID, success, failure) {
     db.ref(`assignments/${courseID}/final/${firebaseID}`).remove()
     .then(function(snapshot) {
-      success("Successfully added student");
+      success("Successfully removed student");
     }, function(error) {
       failure(error);
     });
@@ -207,6 +229,6 @@ app.service("firebaseService", function() {
 //  this.getFinalChoice("-KW04wfI9hVWP_2m38ap", "success", "failure");
 //  this.getCandidates("-KW04wfI9hVWP_2m38ap", "success", "failure");
 //  this.getAllAssignments("success", "failure");
-//this.addCandidateAssignment("-KW05_j8ec1kR90BxdJi", "-KW04wfI9hVWP_2m38ap", "success", "failure");
+// this.addCandidateAssignment("-KW05_j8ec1kR90BxdJi", "-KW04wfI9hVWP_2m38ap", "010", "success", "failure");
 //this.addFinalAssignment("-KW04mhLzhP__N6JRomT", "-KW04wfI9hVWP_2m38ap", "success", "failure");
 });
