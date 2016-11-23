@@ -1,7 +1,8 @@
 var app = angular.module('baseApp');
 
-app.controller('coursesCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
+app.controller('coursesCtrl', ['$scope', 'firebaseService', 'courseTakenFilter', function($scope, firebaseService, courseTakenFilter) {
   $scope.courses = {};
+  $scope.students = [];
 
   $scope.prettifyDays = function(days) {
     var res = "";
@@ -14,13 +15,15 @@ app.controller('coursesCtrl', ['$scope', 'firebaseService', function($scope, fir
   $scope.launchModal = function(course, section) {
     $scope.currentCourse = course;
     $scope.currentSection = section;
-    $scope.currentStudents = JSON.parse(JSON.stringify($scope.students));
-    //$scope.$apply();
+    $scope.currentStudents = $scope.students.slice();
   }
 
-  $scope.removeStudent = function(student) {
-    delete $scope.currentStudents[student];
-    console.log($scope.students);
+  $scope.removeStudent = function(fbId) {
+    for(var i = 0; i < $scope.currentStudents.length; i++) {
+      if($scope.currentStudents[i].firebaseId == fbId) {
+        $scope.currentStudents.splice(i, 1);
+      }
+    }
   }
 
   firebaseService.getCourses(function(courses) {

@@ -3,9 +3,10 @@ var app = angular.module('baseApp');
 app.service("firebaseService", function() {
   var db = firebase.database();
 
-  // Student Operations
-  var castSingleToStudent = function(obj) {
-    return new Student(
+  /* STUDENT OPERATIONS */
+
+  var castSingleToStudent = function(obj, key) {
+    var s = new Student(
       obj.isUndergrad,
       obj.id,
       obj.first_name,
@@ -15,13 +16,15 @@ app.service("firebaseService", function() {
       obj.grades,
       obj.tags
     );
+    s.firebaseId = key;
+    return s;
   };
 
   var castManyToStudent = function(objects) {
     var students = [];
     for(var key in objects) {
       var obj = objects[key];
-      students.push(castSingleToStudent(obj));
+      students.push(castSingleToStudent(obj, key));
     }
     return students;
   }
@@ -29,7 +32,7 @@ app.service("firebaseService", function() {
   this.getStudents = function(success, failure) {
     return db.ref("students").once("value")
     .then(function(snapshot) {
-      success(snapshot.val());
+      success(castManyToStudent(snapshot.val()));
     }, function(error) {
       failure(error);
     });
@@ -64,7 +67,9 @@ app.service("firebaseService", function() {
     });
   };
 
-  // Course Operations
+
+  /* COURSE OPERATIONS */
+
   var castSingleToCourse = function(obj) {
     return new Course(
       obj.courseID,
@@ -119,6 +124,8 @@ app.service("firebaseService", function() {
       failure(error);
     });
   };
+
+  /* ASSIGNMENT OPERATIONS */
 
   // adds the given student to the course's candidate choices
   // takes in the firebase id of the student and course

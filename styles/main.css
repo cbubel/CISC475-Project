@@ -5,3 +5,7 @@ html {
 .angular-material-form {
   background-color: #FFF !important;
 }
+
+.no-hover-cursor {
+  cursor: default !important;
+}
