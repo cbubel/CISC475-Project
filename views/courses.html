@@ -23,7 +23,7 @@
         <th>Grad TAs</th>
         <th>Undergrad TAs</th>
         <th>Undergrad LAs</th>
-        <th>Matches</th>
+        <th>Candidates</th>
       </tr>
       <tr ng-repeat="section in course.sections">
         <td>{{section.sectionID}}</td>
@@ -35,7 +35,7 @@
         <td>{{section.undergradTAsNeeded}}</td>
         <td>{{section.undergradLAsNeeded}}</td>
         <td ng-init="sec = section">
-          <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" ng-click="launchModal(course, section)">View Matches</button>
+          <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" ng-click="launchModal(course, section)">Assign Candidates</button>
         </td>
       </tr>
     </table>
