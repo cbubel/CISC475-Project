@@ -29,6 +29,10 @@ app.config(function($routeProvider) {
     templateUrl : "views/edit-course.html",
     controller: "editCourseCtrl"
   })
+  .when("/candidates", {
+    templateUrl : "views/candidates.html",
+    controller: "candidatesCtrl"
+  })
   .otherwise({
     templateUrl: "views/404.html"
   });

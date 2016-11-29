@@ -1,6 +1,52 @@
 var app = angular.module('baseApp');
 
-app.controller('addStudentCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
+app.controller('addStudentCtrl', ['$scope', 'firebaseService', function($scope, firebaseService, $timeout, $interval) {
+
+    $scope.standardTimeOptions = [
+      {id: 1, option: 'AM'},
+      {id: 2, option: 'PM'}
+    ];
+
+    $scope.changeTime = function(current, change) {
+      if (typeof current != 'undefined') {
+        var result = change + " " + current.split(' ')[1];
+        console.log(result);
+        return result;
+      }
+      else {
+        var result = change + " " + "AM";
+        console.log("current undefined!")
+        console.log(result);
+        return result;
+      }
+    };
+
+    $scope.changeAMorPM = function(current, change) {
+      if (typeof current != 'undefined') {
+        var result = current.split(' ')[0] + " " + change;
+        console.log(result);
+        return result;
+      }
+      else {
+        var result = " "  + change
+        return result;
+      }
+    };
+
+    $scope.removeSpaces = function(input) {
+      return input.replace(/\s+/g, '');;
+    }
+
+    $scope.initTime = function(time) {
+      if (typeof time != 'undefined' && time != "") {
+        return time.split(' ')[0];
+      };
+    };
+
+    $scope.initAMorPM = function(time) {
+      return $scope.standardTimeOptions[0];
+    }
+
     $scope.grades = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F'];
 
     $scope.student = new Student();
@@ -37,7 +83,7 @@ app.controller('addStudentCtrl', ['$scope', 'firebaseService', function($scope, 
     function isMissingScheduleInformation() {
         for (var i = 0; i < $scope.student.schedule.length; i++) {
             var course = $scope.student.schedule[i];
-            if (course.id == "" || course.start_time == "" || course.end_time == "") {
+            if (course.id == "" || course.start_time.length < 7 || course.end_time.length < 7) {
                 return true;
             }
         }
@@ -45,6 +91,8 @@ app.controller('addStudentCtrl', ['$scope', 'firebaseService', function($scope, 
     };
 
     $scope.submit = function() {
+
+        console.log($scope.student.schedule[0]);
 
         if (areReqFieldsFilled()) {
             cleanUp();

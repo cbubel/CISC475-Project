@@ -3,6 +3,54 @@ var app = angular.module('baseApp');
 app.controller('editStudentCtrl', ['$scope', '$location', '$routeParams', 'firebaseService', function($scope, $location, $routeParams, firebaseService) {
   $scope.grades = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F'];
 
+  $scope.standardTimeOptions = [
+    {id: 1, option: 'AM'},
+    {id: 2, option: 'PM'}
+  ];
+
+  $scope.changeTime = function(current, change) {
+    if (typeof current != 'undefined') {
+      return change + " " + current.split(' ')[1];
+    }
+    else {
+      return change + " " + "AM";
+    };
+  };
+
+  $scope.changeAMorPM = function(current, change) {
+    if (typeof current != 'undefined') {
+      return current.split(' ')[0] + " " + change;
+    }
+    else {
+      return " " + change;
+    };
+  };
+
+  $scope.initTime = function(time) {
+    if (typeof time != 'undefined' && time != "") {
+      return time.split(' ')[0];
+    };
+  };
+
+  $scope.initAMorPM = function(time) {
+    if (typeof time != 'undefined' && time != "") {
+      var option = time.split(' ')[1];
+      if (option == $scope.standardTimeOptions[0].option) {
+        return $scope.standardTimeOptions[0];
+      }
+      else {
+        return $scope.standardTimeOptions[1];
+      }
+    };
+    return $scope.standardTimeOptions[0];
+  };
+
+  $scope.getCompleteTime = function(time, amOrPM) {
+    console.log(time);
+    console.log(amOrPM);
+    return time + " " + amOrPM;
+  };
+
   firebaseService.getStudentById($routeParams.student_id, function(student) {
     $scope.student = student;
     $scope.$apply();
@@ -33,7 +81,7 @@ app.controller('editStudentCtrl', ['$scope', '$location', '$routeParams', 'fireb
   function isMissingScheduleInformation() {
       for (var i = 0; i < $scope.student.schedule.length; i++) {
           var course = $scope.student.schedule[i];
-          if (course.id == "" || course.start_time == "" || course.end_time == "") {
+          if (course.id == "" || course.start_time.length < 7 || course.end_time.length < 7) {
               return true;
           }
       }
@@ -41,6 +89,8 @@ app.controller('editStudentCtrl', ['$scope', '$location', '$routeParams', 'fireb
   };
 
   $scope.submit = function() {
+    console.log($scope.student.schedule[0]);
+
     if (areReqFieldsFilled()) {
       // $scope.student.id = parseInt($scope.student.id);
       $scope.student.schedule.forEach(function(course) {
