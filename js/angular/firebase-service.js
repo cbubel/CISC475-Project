@@ -42,7 +42,7 @@ app.service("firebaseService", function() {
     return db.ref(`students/${id}`).once("value")
     .then(function(snapshot) {
       var obj = snapshot.val();
-      success(castSingleToStudent(obj));
+      success(castSingleToStudent(obj, snapshot.getKey()));
     }, function(error) {
       failure(error);
     });

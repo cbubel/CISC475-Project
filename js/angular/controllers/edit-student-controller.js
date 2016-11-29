@@ -5,7 +5,6 @@ app.controller('editStudentCtrl', ['$scope', '$location', '$routeParams', 'fireb
 
   firebaseService.getStudentById($routeParams.student_id, function(student) {
     $scope.student = student;
-    console.log(student);
     $scope.$apply();
   }, function(error) {
     console.log(error);
