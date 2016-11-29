@@ -1,3 +1,29 @@
-<div>
-  <h>TEST</h>
+<h1>Candidates</h1>
+
+<div class="panel panel-default" ng-repeat="potentialAssignment in courseAssignments">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="panel-title">{{potentialAssignment[0].courseID}}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <table class="table table-condensed table-striped sections-table">
+      <tr>
+        <th>Student Name</th>
+        <th>Section</th>
+        <th>Student ID</th>
+        <th>Status</th>
+      </tr>
+      <tr ng-repeat="candidate in potentialAssignment[1]">
+        <td>{{candidate.name}}</td>
+        <td>{{candidateInfo.section}}</td>
+        <td>{{candidate.studentID}}</td>
+        <td>BUTTON</td>
+      </tr>
+
+    </table>
+
+  </div>
 </div>
