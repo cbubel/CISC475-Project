@@ -1,6 +1,52 @@
 var app = angular.module('baseApp');
 
 app.controller('addCourseCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
+
+  $scope.standardTimeOptions = [
+    {id: 1, option: 'AM'},
+    {id: 2, option: 'PM'}
+  ];
+
+  $scope.changeTime = function(current, change) {
+    if (typeof current != 'undefined' && current != "") {
+      var result = change + " " + current.split(' ')[1];
+      console.log(result);
+      return result;
+    }
+    else {
+      var result = change + " " + "AM";
+      console.log("current undefined!")
+      console.log(result);
+      return result;
+    }
+  };
+
+  $scope.changeAMorPM = function(current, change) {
+    if (typeof current != 'undefined') {
+      var result = current.split(' ')[0] + " " + change;
+      console.log(result);
+      return result;
+    }
+    else {
+      var result = " "  + change
+      return result;
+    }
+  };
+
+  $scope.removeSpaces = function(input) {
+    return input.replace(/\s+/g, '');;
+  }
+
+  $scope.initTime = function(time) {
+    if (typeof time != 'undefined' && time != "") {
+      return time.split(' ')[0];
+    };
+  };
+
+  $scope.initAMorPM = function(time) {
+    return $scope.standardTimeOptions[0];
+  };
+
   $scope.course = new Course();
 
   $scope.addSection = function() {

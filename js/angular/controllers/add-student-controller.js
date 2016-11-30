@@ -1,6 +1,6 @@
 var app = angular.module('baseApp');
 
-app.controller('addStudentCtrl', ['$scope', 'firebaseService', function($scope, firebaseService, $timeout, $interval) {
+app.controller('addStudentCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
 
     $scope.standardTimeOptions = [
       {id: 1, option: 'AM'},
