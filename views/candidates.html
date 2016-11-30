@@ -20,9 +20,11 @@
         <td>{{candidate.name}}</td>
         <td>{{candidate.section}}</td>
         <td>{{candidate.studentID}}</td>
-        <td>BUTTON</td>
+        <td ng-init="status = isAssigned(potentialAssignment[0].firebaseId, candidate.firebaseID, candidate.section)">
+          <button ng-show="!status" class="btn btn-success btn-xs" ng-click="assignment = assignStudent(candidate.firebaseID, potentialAssignment[0].firebaseId, candidate.section); status = true">Finalize Assignment</button>
+          <button ng-show="status" class="btn btn-danger btn-xs" ng-click="undoAssignment(potentialAssignment[0].firebaseId, candidate.firebaseID, candidate.section); status = false">Undo Assignment</button>
+        </td>
       </tr>
-
     </table>
 
   </div>

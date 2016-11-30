@@ -163,9 +163,9 @@ app.service("firebaseService", function() {
       studentId: studentID
     };
 
-    db.ref(`assignments/${courseID}/final`).push(studentID)
+    db.ref(`assignments/${courseID}/final`).push(data)
     .then(function(snapshot) {
-      success("Successfully added student");
+      success("successfully added final student assignment");
     }, function(error) {
       failure(error);
     });
@@ -219,7 +219,7 @@ app.service("firebaseService", function() {
   this.removeFinal = function(firebaseID, courseID, success, failure) {
     db.ref(`assignments/${courseID}/final/${firebaseID}`).remove()
     .then(function(snapshot) {
-      success("Successfully removed student");
+      success("Successfully removed final student assignment");
     }, function(error) {
       failure(error);
     });
