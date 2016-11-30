@@ -102,7 +102,7 @@ app.service("firebaseService", function() {
     return db.ref(`courses/${id}`).once("value")
     .then(function(snapshot) {
       var obj = snapshot.val();
-      success(castSingleToCourse(obj));
+      success(castSingleToCourse(obj, snapshot.getKey()));
     }, function(error){
       failure(error);
     });
