@@ -6,9 +6,3 @@ var config = {
     messagingSenderId: "489031120401"
 };
 firebase.initializeApp(config);
-
-firebase.auth().signInAnonymously().catch(function(error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log(errorCode, errorMessage);
-});
