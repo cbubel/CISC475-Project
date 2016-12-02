@@ -18,6 +18,10 @@
 
   <!-- Allows router to substitute partials -->
   <div class="container">
+    <div id="error-container" class="alert alert-danger" role="alert">
+      <strong>Authentication error</strong>: 
+      Please login to view content and perform actions.
+    </div>
     <div ng-view></div>
   </div>
 
@@ -51,6 +55,7 @@
   <script src="js/angular/filters.js"></script>
   <script src="js/angular/models/courseSection-model.js"></script>
   <script src="js/angular/controllers/auth-controller.js"></script>
+  <script src="js/angular/controllers/home-controller.js"></script>
   <script src="js/angular/controllers/add-student-controller.js"></script>
   <script src="js/angular/controllers/edit-student-controller.js"></script>
   <script src="js/angular/controllers/edit-course-controller.js"></script>

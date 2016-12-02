@@ -1,6 +1,7 @@
 var app = angular.module('baseApp');
 
-app.controller('addCourseCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
+app.controller('addCourseCtrl', ['$scope', 'firebaseService', 'authService', function($scope, firebaseService, authService) {
+  authService.checkUser();
 
   $scope.standardTimeOptions = [
     {id: 1, option: 'AM'},

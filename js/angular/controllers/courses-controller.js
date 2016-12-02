@@ -1,6 +1,8 @@
 var app = angular.module('baseApp');
 
-app.controller('coursesCtrl', ['$scope', 'firebaseService', 'courseTakenFilter', function($scope, firebaseService, courseTakenFilter) {
+app.controller('coursesCtrl', ['$scope', 'firebaseService', 'authService', 'courseTakenFilter', function($scope, firebaseService, authService, courseTakenFilter) {
+  authService.checkUser();
+
   $scope.courses = {};
   $scope.students = [];
 

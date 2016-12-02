@@ -1,6 +1,7 @@
 var app = angular.module('baseApp');
 
-app.controller('candidatesCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
+app.controller('candidatesCtrl', ['$scope', 'firebaseService', 'authService', function($scope, firebaseService, authService) {
+    authService.checkUser();
 
     $scope.assignStudent = function(studentFirebaseID, courseFirebaseID, studentSection) {
         var promise = firebaseService.addFinalAssignment(studentFirebaseID, courseFirebaseID, studentSection,

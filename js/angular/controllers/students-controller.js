@@ -1,6 +1,8 @@
 var app = angular.module('baseApp');
 
-app.controller('studentsCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
+app.controller('studentsCtrl', ['$scope', 'firebaseService', 'authService', function($scope, firebaseService, authService) {
+  authService.checkUser();
+  
   $scope.students = {};
 
   firebaseService.getStudents(function(students) {

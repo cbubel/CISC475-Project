@@ -2,7 +2,9 @@ var app = angular.module('baseApp');
 
 // This js file is used for showing the firebase database on students.html
 
-app.controller('tableCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
+app.controller('tableCtrl', ['$scope', 'firebaseService', 'authService', function($scope, firebaseService, authService) {
+  authService.checkUser();
+
   $scope.students = {};
 
   firebaseService.getStudents(function(students) {

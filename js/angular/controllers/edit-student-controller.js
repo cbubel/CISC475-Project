@@ -1,6 +1,8 @@
 var app = angular.module('baseApp');
 
-app.controller('editStudentCtrl', ['$scope', '$location', '$routeParams', 'firebaseService', function($scope, $location, $routeParams, firebaseService) {
+app.controller('editStudentCtrl', ['$scope', '$location', '$routeParams', 'firebaseService', 'authService', function($scope, $location, $routeParams, firebaseService, authService) {
+  authService.checkUser();
+
   $scope.grades = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F'];
 
   $scope.standardTimeOptions = [
