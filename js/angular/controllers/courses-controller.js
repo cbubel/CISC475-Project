@@ -70,6 +70,56 @@ app.controller('coursesCtrl', ['$scope', 'firebaseService', 'authService', 'cour
     });
   };
 
+  $scope.getStudentsAvailable = function(startTime, endTime, days, isChecked){
+    console.log(isChecked);
+    if(isChecked){
+      for(var i = 0; i < $scope.currentStudents.length; i++) {
+        var student = $scope.currentStudents[i];
+        // should be in form... "2013/05/29 12:30 PM"
+        var course_start = new Date(Date.parse("2001/01/01 " + startTime));
+        var course_end = new Date(Date.parse("2001/01/01 " + endTime));
+        var sameDays = false;
+        // for each course in student.schedule
+        for (var j=0; j < student.schedule.length; j++){
+          // check if any input days intersect with course.days
+          for (var day in days){
+            for (var d in student.schedule[j].days){
+              if (day === d && days[day] && days[d]){
+                sameDays = true;
+              //  break;
+              }
+            }
+            if(sameDays){
+            //  break;
+            }
+          }
+          if(sameDays){
+            console.log("HERRRRREEEEE");
+            console.log(student.schedule[j]);
+            //convert
+            var student_course_start = new Date(Date.parse("2001/01/01 " + student.schedule[j].start_time));
+            var student_course_end = new Date(Date.parse("2001/01/01 " + student.schedule[j].end_time));
+            // if course starts in middle or ends in middle of given class, then student is busy
+          //  console.log(course.endTime);
+            console.log(student_course_start);
+            console.log(student_course_end);
+            console.log(course_start);
+            console.log(course_end);
+            if((student_course_start <= course_end && student_course_start >= course_start) || (student_course_end >= course_start && student_course_end <= course_end)){
+              // remove from list
+              console.log("Found someone");
+              $scope.currentStudents.splice(i, 1);
+            }
+          }
+
+        }
+      }
+    }
+    else{
+      $scope.currentStudents = $scope.students.slice();
+    }
+  }
+
   firebaseService.getCourses(function(courses) {
     $scope.courses = courses;
     console.log(courses);

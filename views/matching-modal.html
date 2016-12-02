@@ -5,7 +5,7 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">{{currentCourse.courseID}} {{currentSection.sectionID}}</h4>
         </div>
-        
+
         <div class="modal-body">
             <div class="row">
                 <div class="col-md-12">
@@ -61,10 +61,13 @@
                                 All
                             </label>
                         </div>
+                        <div ng-init="isChecked = ''">
+                          <label><input type="checkbox" ng-model="isChecked" ng-click="getStudentsAvailable(currentSection.startTime, currentSection.endTime, currentSection.days, isChecked)">Available During Section Time</label>
+                        </div>
                     </form>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-condensed table-striped">
@@ -72,7 +75,7 @@
                             <tr>
                                 <th>First Name</th>
                                 <th>Last Name</th>
-                                <th>Email</th>
+                                <th>Undergrad</th>
                                 <th>Tags</th>
                                 <th>Hide</th>
                                 <th>Assign</th>
@@ -82,7 +85,7 @@
                             <tr ng-repeat="student in currentStudents | filter:showIsUndergrad | filter:{tags:searchTag} | courseTaken:searchCourse | filter:showIsAssigned track by student.firebaseId">
                                 <td>{{student.first_name}}</td>
                                 <td>{{student.last_name}}</td>
-                                <td>{{student.email}}</td>
+                                <td>{{student.isUndergrad}}</td>
                                 <td>{{student.tags}}</td>
                                 <td>
                                 <a href="" ng-click="removeStudent(student.firebaseId)">
@@ -103,7 +106,7 @@
                     </table>
                 </div>
             </div>
-            
+
 
         </div>
         <div class="modal-footer">
