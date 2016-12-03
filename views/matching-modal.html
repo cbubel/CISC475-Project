@@ -75,7 +75,7 @@
                             <tr>
                                 <th>First Name</th>
                                 <th>Last Name</th>
-                                <th>Undergrad</th>
+                                <th>Type</th>
                                 <th>Tags</th>
                                 <th>Hide</th>
                                 <th>Assign</th>
@@ -85,11 +85,12 @@
                             <tr ng-repeat="student in currentStudents | filter:showIsUndergrad | filter:{tags:searchTag} | courseTaken:searchCourse | filter:showIsAssigned track by student.firebaseId">
                                 <td>{{student.first_name}}</td>
                                 <td>{{student.last_name}}</td>
-                                <td>{{student.isUndergrad}}</td>
+                                <td><p ng-show="student.isUndergrad">Undergrad</p>
+                                <p ng-show="!student.isUndergrad">Graduate</p></td>
                                 <td>{{student.tags}}</td>
                                 <td>
                                 <a href="" ng-click="removeStudent(student.firebaseId)">
-                                    <span class="glyphicon glyphicon-remove align center"></span>
+                                  <button class="btn btn-warning btn-xs"> Remove </button>
                                 </a>
                                 </td>
                                 <td>

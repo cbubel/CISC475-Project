@@ -71,7 +71,6 @@ app.controller('coursesCtrl', ['$scope', 'firebaseService', 'authService', 'cour
   };
 
   $scope.getStudentsAvailable = function(startTime, endTime, days, isChecked){
-    console.log(isChecked);
     if(isChecked){
       for(var i = 0; i < $scope.currentStudents.length; i++) {
         var student = $scope.currentStudents[i];
@@ -94,17 +93,11 @@ app.controller('coursesCtrl', ['$scope', 'firebaseService', 'authService', 'cour
             }
           }
           if(sameDays){
-            console.log("HERRRRREEEEE");
-            console.log(student.schedule[j]);
             //convert
             var student_course_start = new Date(Date.parse("2001/01/01 " + student.schedule[j].start_time));
             var student_course_end = new Date(Date.parse("2001/01/01 " + student.schedule[j].end_time));
             // if course starts in middle or ends in middle of given class, then student is busy
           //  console.log(course.endTime);
-            console.log(student_course_start);
-            console.log(student_course_end);
-            console.log(course_start);
-            console.log(course_end);
             if((student_course_start <= course_end && student_course_start >= course_start) || (student_course_end >= course_start && student_course_end <= course_end)){
               // remove from list
               console.log("Found someone");
