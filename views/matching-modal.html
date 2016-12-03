@@ -31,8 +31,13 @@
                                 <input ng-model="searchCourse" type="text" placeholder="Search course taken" class="form-control" />
                             </div>
                         </div>
-
-                        <div class="input-group" ng-init="showIsUndergrad = ''">
+                        &nbsp; &nbsp; &nbsp;
+                        <label ng-init="isChecked = ''" style="font-weight: normal !important; margin-top:6px;">
+                          <input type="checkbox" ng-model="isChecked" ng-click="getStudentsAvailable(currentSection.startTime, currentSection.endTime, currentSection.days, isChecked)" />
+                          Available During Section
+                        </label>
+                        <br><div class="input-group" ng-init="showIsUndergrad = ''" style="margin-top: 10px;">
+                          <strong>Student Type: &nbsp;</strong>
                             <label class="radio-inline">
                                 <input type="radio" ng-model="showIsUndergrad" name="studentTypeSwitcher" ng-value="{isUndergrad:'false'}" />
                                 Grad
@@ -47,7 +52,8 @@
                             </label>
                         </div>
 
-                        <div class="input-group" ng-init="showIsAssigned = ''">
+                        <div class="input-group" ng-init="showIsAssigned = ''" style="margin-top: 10px;">
+                          <strong>&nbsp; &nbsp; &nbsp; Assignments: &nbsp;</strong>
                             <label class="radio-inline">
                                 <input type="radio" ng-model="showIsAssigned" name="assignmentSwitcher" ng-value="{isAssigned:'true'}" />
                                 Assigned
@@ -61,13 +67,10 @@
                                 All
                             </label>
                         </div>
-                        <div ng-init="isChecked = ''">
-                          <label><input type="checkbox" ng-model="isChecked" ng-click="getStudentsAvailable(currentSection.startTime, currentSection.endTime, currentSection.days, isChecked)">Available During Section Time</label>
-                        </div>
                     </form>
                 </div>
             </div>
-
+            <br>
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-condensed table-striped">
@@ -77,8 +80,8 @@
                                 <th>Last Name</th>
                                 <th>Type</th>
                                 <th>Tags</th>
-                                <th>Hide</th>
                                 <th>Assign</th>
+                                <th>Hide</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -89,11 +92,6 @@
                                 <p ng-show="!student.isUndergrad">Graduate</p></td>
                                 <td>{{student.tags}}</td>
                                 <td>
-                                <a href="" ng-click="removeStudent(student.firebaseId)">
-                                  <button class="btn btn-warning btn-xs"> Remove </button>
-                                </a>
-                                </td>
-                                <td>
                                     <button ng-hide="student.isAssigned" id="assignStudent" class="btn btn-success btn-xs" ng-click="assignCandidate($index, student.firebaseId, currentCourse.firebaseId, currentSection.sectionID)">
                                         Assign candidate
                                     </button>
@@ -101,6 +99,11 @@
                                     <button ng-show="student.isAssigned" id="assignStudent" class="btn btn-danger btn-xs" ng-click="removeCandidate($index, student.assignmentFbId, currentCourse.firebaseId)">
                                         Remove candidate
                                     </button>
+                                </td>
+                                <td>
+                                <a href="" ng-click="removeStudent(student.firebaseId)">
+                                  <button class="btn btn-warning btn-xs"> Hide </button>
+                                </a>
                                 </td>
                             </tr>
                         </tbody>
