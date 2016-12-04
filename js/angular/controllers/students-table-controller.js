@@ -3,6 +3,9 @@ var app = angular.module('baseApp');
 // This js file is used for showing the firebase database on students.html
 
 app.controller('tableCtrl', ['$scope', 'firebaseService', 'authService', function($scope, firebaseService, authService) {
+	
+  $scope.searchStudent = '';
+  $scope.searchByName = true;
   authService.checkUser();
 
   $scope.students = {};
@@ -14,6 +17,16 @@ app.controller('tableCtrl', ['$scope', 'firebaseService', 'authService', functio
   }, function(error) {
     console.log(error);
   });
+  
+  // This function is used to filter the students in the table
+  $scope.filterStudent = function(aStudent) {
+	  if($scope.searchbyName){
+		  return aStudent.first_name.includes($scope.searchStudent) || aStudent.last_name.includes($scope.searchStudent);
+	  }
+	  else{
+		  return false//return aStudent.tags.includes($scope.searchStudent);
+	  }
+  }
   
 	  // This function is used to return a boolean to see if student.schedule contains a certain day
   $scope.writeBusyDays = function(curr_class) {
