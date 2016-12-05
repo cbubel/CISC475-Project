@@ -1,0 +1,26 @@
+<h1>Final Assignments</h1>
+
+<div class="panel panel-default" ng-repeat="finalAssignment in courseAssignments">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="panel-title">{{finalAssignment[0].courseID}}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <table class="table table-condensed table-striped sections-table">
+      <tr>
+        <th>Student Name</th>
+        <th>Section</th>
+        <th>Student ID</th>
+      </tr>
+      <tr ng-repeat="student in finalAssignment[1]">
+        <td>{{student.name}}</td>
+        <td>{{student.section}}</td>
+        <td>{{student.studentID}}</td>
+      </tr>
+    </table>
+
+  </div>
+</div>

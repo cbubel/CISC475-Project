@@ -182,7 +182,7 @@ app.service("firebaseService", function() {
   };
 
   // returns all the studentIDs of the final choices for the given firebase courseID
-  this.getFinalChoice = function(courseID, success, failure) {
+  this.getFinalAssignment = function(courseID, success, failure) {
     return db.ref(`assignments/${courseID}/final`).once("value")
     .then(function(snapshot) {
       success(assignmentObjectsToArray(snapshot.val()));

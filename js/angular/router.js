@@ -34,6 +34,10 @@ app.config(function($routeProvider) {
     templateUrl : "views/candidates.html",
     controller: "candidatesCtrl"
   })
+  .when("/final-assignments", {
+    templateUrl : "views/final-assignments.html",
+    controller: "finalCtrl"
+  })
   .otherwise({
     templateUrl: "views/404.html"
   });
