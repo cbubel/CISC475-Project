@@ -212,6 +212,12 @@ app.service("firebaseService", function() {
     }, function(error) {
       failure(error);
     });
+    db.ref(`assignments/${courseID}/final/${firebaseID}`).remove()
+    .then(function(snapshot) {
+      //success("Successfully removed final student assignment");
+    }, function(error) {
+      failure(error);
+    });
   };
 
   // Will remove student from course's final field. Must take in the firebase ID
@@ -224,11 +230,4 @@ app.service("firebaseService", function() {
       failure(error);
     });
   };
-
-//  this.removeCandidate("-KX7iJZTgAZVVYKEFbOi", "-KW04wfI9hVWP_2m38ap", "success", "failure");
-//  this.getFinalChoice("-KW04wfI9hVWP_2m38ap", "success", "failure");
-//  this.getCandidates("-KW04wfI9hVWP_2m38ap", "success", "failure");
-//  this.getAllAssignments("success", "failure");
-// this.addCandidateAssignment("-KW05_j8ec1kR90BxdJi", "-KW04wfI9hVWP_2m38ap", "010", "success", "failure");
-//this.addFinalAssignment("-KW04mhLzhP__N6JRomT", "-KW04wfI9hVWP_2m38ap", "success", "failure");
 });
