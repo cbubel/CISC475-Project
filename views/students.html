@@ -4,12 +4,14 @@
   <div ng-controller="tableCtrl">
     <div>
       <hr>
-      <label>First Name: <input ng-model="search.first_name"></label> <br>
-      <label>Last Name: <input ng-model="search.last_name"></label><br>
-      <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tag: <input ng-model="search.tags"></label><br>
+          <h4>Filters:</h4>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>First Name: <input ng-model="search.first_name"></label>&nbsp;&nbsp;&nbsp;
+      <label>Last Name: <input ng-model="search.last_name"></label>&nbsp;&nbsp;&nbsp;
+      <label>Tag: <input ng-model="search.tags"></label><br>
       <!-- Have mercy on my ugly code. It works...  -->
-	  <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Graduate: <input type=radio ng-model="search.isUndergrad" ng-value="true"></label><br>
-	  <label>Undergraduate: <input type=radio ng-model="search.isUndergrad" ng-value="false"></label><br>
+	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>Graduate: <input type=radio ng-model="search.isUndergrad" ng-value="true"></label>&nbsp;&nbsp;&nbsp;
+	  <label>Undergraduate: <input type=radio ng-model="search.isUndergrad" ng-value="false"></label>&nbsp;&nbsp;&nbsp;
+    <label>All: <input type=radio ng-model="search.isUndergrad" ng-value=""></label><br><br>
       <table class="table table-hover table-condensed table-striped">
         <thead class="levelOne">
           <tr>
