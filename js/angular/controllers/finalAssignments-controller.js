@@ -83,4 +83,35 @@ app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', functio
         console.log(error);
     });
 
+
+    $scope.undoFinalAssignment = function(courseFirebaseID, studentFirebaseID, assignmentSection) {
+        firebaseService.getAllAssignments(function(object) {
+            for (var key in object) {
+                if (key == courseFirebaseID) {
+                    if (object.hasOwnProperty(key)) {
+                        var finals = object[key].final;
+                        for (var assignment in finals) {
+                            if (finals.hasOwnProperty(assignment)) {
+                                var section = finals[assignment].section;
+                                var studentFID = finals[assignment].studentId;
+                                if (section == assignmentSection && studentFID == studentFirebaseID) {
+                                    firebaseService.removeFinal(assignment, courseFirebaseID,
+                                        function(result) {
+                                            console.log(result);
+                                        },
+                                        function(error) {
+                                            console.log(error);
+                                        });
+                                };
+                            };
+                        };
+                    };
+                };
+            };
+        }, function(error) {
+            console.log(error);
+        });
+    };
+
+
 }]);
