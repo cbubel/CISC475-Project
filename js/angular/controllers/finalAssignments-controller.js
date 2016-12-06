@@ -6,7 +6,7 @@ app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', functio
       return ["Course","Section", "Name", "Email"];
     }
     $scope.getDataHeaderStudent = function(){
-      return ["Name", "Course","Section", "Email"];
+      return ["Name", "Course","Section", "Workload", "Email"];
     }
     $scope.content=true;
     $scope.coursePage = function(){
@@ -38,6 +38,7 @@ app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', functio
                 var candidates = [];
                 $scope.courseAssignments.push([course, candidates]);
                 $scope.$apply()
+                firebaseService.getCourseById(course.firebaseId, function(fbcourse){
                 result.forEach(function(candidate) {
                     firebaseService.getStudentById(candidate.studentId, function(student) {
                         var candidateInfo = {};
@@ -47,8 +48,15 @@ app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', functio
                         candidateInfo.firebaseID = candidate.studentId;
                         candidateInfo.email = student.email;
                         candidates.push(candidateInfo);
-                        $scope.csvAssignmentsStudents.push([candidateInfo.name, course.courseID, candidateInfo.section, student.email]);
-                        $scope.assignedStudents.push([candidateInfo.name, course.courseID, candidateInfo.section]);
+                        var workload = 0
+                        for(var j = 0; j < fbcourse.sections.length; j++){
+                          console.log(fbcourse.sections[j]);
+                          if (fbcourse.sections[j].sectionID == candidate.section){
+                             workload = fbcourse.sections[j].numberOfStudents;
+                          }
+                        }
+                        $scope.csvAssignmentsStudents.push([candidateInfo.name, course.courseID, candidateInfo.section, workload, student.email]);
+                        $scope.assignedStudents.push([candidateInfo.name, course.courseID, candidateInfo.section, workload]);
                         // once we have all the info about candidates we need, we push the candidates list
                         if (candidates.length == result.length) {
                             $scope.courseAssignments[index] = [course, candidates];
@@ -71,6 +79,8 @@ app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', functio
     }, function(error) {
         console.log(error);
     });
-
+    }, function(error) {
+        console.log(error);
+    });
 
 }]);
