@@ -108,6 +108,7 @@ app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', functio
                     };
                 };
             };
+            location.reload();
         }, function(error) {
             console.log(error);
         });
