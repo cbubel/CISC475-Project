@@ -4,27 +4,6 @@ app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', functio
     authService.checkUser();
 
 
-    $scope.isAssigned = function(courseFirebaseID, studentFirebaseID, assignmentSection) {
-        var object = $scope.allAssignments;
-        for (var key in object) {
-            if (key == courseFirebaseID) {
-                if (object.hasOwnProperty(key)) {
-                    var finals = object[key].final;
-                    for (var assignment in finals) {
-                        if (finals.hasOwnProperty(assignment)) {
-                            var section = finals[assignment].section;
-                            var studentFID = finals[assignment].studentId;
-                            if (section == assignmentSection && studentFID == studentFirebaseID) {
-                                return true;
-                            };
-                        };
-                    };
-                };
-            };
-        };
-        return false;
-    };
-
     firebaseService.getAllAssignments(function(object) {
         $scope.allAssignments = object;
         $scope.$apply();
@@ -36,6 +15,7 @@ app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', functio
 
     firebaseService.getCourses(function(courses) {
         $scope.courseAssignments = [];
+        $scope.csvAssignments = [];
         courses.forEach(function(course, index) {
             // get the candidates for this course
             firebaseService.getFinalAssignment(course.firebaseId, function(result) {
@@ -51,6 +31,8 @@ app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', functio
                         candidateInfo.studentID = student.id;
                         candidateInfo.firebaseID = candidate.studentId;
                         candidates.push(candidateInfo);
+                        $scope.csvAssignments.push([course.courseID, candidateInfo.section, candidateInfo.name, candidateInfo.studentID])
+
                         // once we have all the info about candidates we need, we push the candidates list
                         if (candidates.length == result.length) {
                             $scope.courseAssignments[index] = [course, candidates];
@@ -69,7 +51,5 @@ app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', functio
     }, function(error) {
         console.log(error);
     });
-
-
 
 }]);

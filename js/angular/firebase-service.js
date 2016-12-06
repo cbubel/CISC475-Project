@@ -212,12 +212,6 @@ app.service("firebaseService", function() {
     }, function(error) {
       failure(error);
     });
-    db.ref(`assignments/${courseID}/final/${firebaseID}`).remove()
-    .then(function(snapshot) {
-      //success("Successfully removed final student assignment");
-    }, function(error) {
-      failure(error);
-    });
   };
 
   // Will remove student from course's final field. Must take in the firebase ID
