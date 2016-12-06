@@ -67,6 +67,15 @@ app.service("firebaseService", function() {
     });
   };
 
+  this.removeStudent = function(firebaseID, success, failure) {
+    db.ref(`students/${firebaseID}`).remove()
+    .then(function(snapshot) {
+      success("Successfully removed student");
+    }, function(error) {
+      failure(error);
+    });
+  };
+
 
   /* COURSE OPERATIONS */
 
@@ -122,6 +131,15 @@ app.service("firebaseService", function() {
     return db.ref(`courses/${id}`).update(course)
     .then(function(res) {
       callback("Success");
+    }, function(error) {
+      failure(error);
+    });
+  };
+
+  this.removeCourse= function(firebaseID, success, failure) {
+    db.ref(`courses/${firebaseID}`).remove()
+    .then(function(snapshot) {
+      success("Successfully removed course");
     }, function(error) {
       failure(error);
     });

@@ -2,7 +2,7 @@ var app = angular.module('baseApp');
 
 app.controller('editCourseCtrl', ['$scope', '$location', '$routeParams', 'firebaseService', 'authService', function($scope, $location, $routeParams, firebaseService, authService) {
   authService.checkUser();
-  
+
   $scope.standardTimeOptions = [
     {id: 1, option: 'AM'},
     {id: 2, option: 'PM'}
@@ -71,6 +71,17 @@ app.controller('editCourseCtrl', ['$scope', '$location', '$routeParams', 'fireba
 
   $scope.removeSection = function(idx) {
     $scope.course.removeSection(idx);
+  };
+
+  $scope.removeCourse = function() {
+    firebaseService.removeCourse($scope.course.firebaseId, function(result) {
+      toastr.success("Removed course");
+      $location.path("/courses");
+      console.log(result);
+    }, function(error) {
+      toastr.error("Failed to remove");
+      console.log(error);
+    });
   };
 
   function areReqFieldsFilled() {

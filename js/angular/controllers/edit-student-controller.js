@@ -28,6 +28,17 @@ app.controller('editStudentCtrl', ['$scope', '$location', '$routeParams', 'fireb
     };
   };
 
+  $scope.removeStudent = function() {
+    firebaseService.removeStudent($routeParams.student_id, function(result) {
+      toastr.success("Removed student");
+      $location.path("/students");
+      console.log(result);
+    }, function(error) {
+      toastr.error("Failed to remove");
+      console.log(error);
+    });
+  };
+
   $scope.initTime = function(time) {
     if (typeof time != 'undefined' && time != "") {
       return time.split(' ')[0];
