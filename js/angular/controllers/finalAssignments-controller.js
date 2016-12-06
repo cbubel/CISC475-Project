@@ -2,8 +2,19 @@ var app = angular.module('baseApp');
 
 app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', function($scope, firebaseService, authService) {
     authService.checkUser();
-    $scope.getDataHeader = function(){
+    $scope.getDataHeaderCourse = function(){
       return ["Course","Section", "Name", "Email"];
+    }
+    $scope.getDataHeaderStudent = function(){
+      return ["Name", "Course","Section", "Email"];
+    }
+    $scope.content=true;
+    $scope.coursePage = function(){
+      $scope.content = true;
+    }
+
+    $scope.studentsPage = function(){
+      $scope.content = false;
     }
 
     firebaseService.getAllAssignments(function(object) {
@@ -17,12 +28,13 @@ app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', functio
 
     firebaseService.getCourses(function(courses) {
         $scope.courseAssignments = [];
-        $scope.csvAssignments = [];
+        $scope.csvAssignmentsCourses = [];
+        $scope.csvAssignmentsStudents = [];
+        $scope.assignedStudents = [];
         courses.forEach(function(course, index) {
             // get the final assignments for this course
             firebaseService.getFinalAssignment(course.firebaseId, function(result) {
                 // get key candidate info for this course
-                console.log(result);
                 var candidates = [];
                 $scope.courseAssignments.push([course, candidates]);
                 $scope.$apply()
@@ -35,15 +47,15 @@ app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', functio
                         candidateInfo.firebaseID = candidate.studentId;
                         candidateInfo.email = student.email;
                         candidates.push(candidateInfo);
-                        // if by student
-                        // $scope.csvAssignments.push([course.courseID, candidateInfo.section, candidateInfo.name, student.email])
+                        $scope.csvAssignmentsStudents.push([candidateInfo.name, course.courseID, candidateInfo.section, student.email]);
+                        $scope.assignedStudents.push([candidateInfo.name, course.courseID, candidateInfo.section]);
                         // once we have all the info about candidates we need, we push the candidates list
                         if (candidates.length == result.length) {
                             $scope.courseAssignments[index] = [course, candidates];
                             //if by course
-                            for(var i=0; i < candidates.length; i++){
-                              $scope.csvAssignments.push([course.courseID, candidates[i].section, candidates[i].name, candidates[i].email]);
-                            }
+                              for(var i=0; i < candidates.length; i++){
+                                $scope.csvAssignmentsCourses.push([course.courseID, candidates[i].section, candidates[i].name, candidates[i].email]);
+                              }
                             $scope.$apply();
                         };
 
@@ -59,5 +71,6 @@ app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', functio
     }, function(error) {
         console.log(error);
     });
+
 
 }]);

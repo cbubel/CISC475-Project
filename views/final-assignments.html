@@ -1,7 +1,19 @@
 <h1>Final Assignments
-  <button type="button" style="float:right;" class="btn btn-primary" ng-csv="csvAssignments" csv-header="getDataHeader()" filename="test.csv">Export</button>
+  <button ng-hide="content" type="button" style="float:right;" class="btn btn-primary" ng-csv="csvAssignmentsStudents" csv-header="getDataHeaderStudent()" filename="AssignmentsByStudent.csv">Export</button>
+  <button ng-show="content" type="button" style="float:right;" class="btn btn-primary" ng-csv="csvAssignmentsCourses" csv-header="getDataHeaderCourse()" filename="AssignmentsByCourse.csv">Export</button>
 </h1>
-<div class="panel panel-default" ng-repeat="finalAssignment in courseAssignments">
+<div class="row" style="margin-left:0px;">
+    <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-default btn-sm" ng-click="studentsPage()">
+            <input type="radio" ng-model="content">Students
+        </label>
+        <label class="btn btn-default btn-sm active" ng-click="coursePage()">
+            <input type="radio" ng-model="content">Courses
+        </label>
+    </div>
+  </div>
+  <br>
+<div class="panel panel-default" ng-repeat="finalAssignment in courseAssignments" ng-show="content">
   <div class="panel-heading">
     <div class="row">
       <div class="col-md-12">
@@ -23,5 +35,29 @@
       </tr>
     </table>
 
+  </div>
+</div>
+
+<div class="panel panel-default" ng-hide="content">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="panel-title">Students</h3>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body" ng-hide="content">
+    <table class="table table-condensed table-striped sections-table">
+      <tr>
+        <th>Student</th>
+        <th>Course</th>
+        <th>Section</th>
+      </tr>
+      <tr ng-repeat="student in assignedStudents">
+        <td>{{student[0]}}</td>
+        <td>{{student[1]}}</td>
+        <td>{{student[2]}}</td>
+      </tr>
+    </table>
   </div>
 </div>
