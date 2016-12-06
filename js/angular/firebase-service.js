@@ -242,4 +242,14 @@ app.service("firebaseService", function() {
       failure(error);
     });
   };
+
+  this.removeCourseFromAssignments = function(courseID, success, failure) {
+    db.ref(`assignments/${courseID}`).remove()
+    .then(function(snapshot) {
+      success("Successfully removed course assignment");
+    }, function(error) {
+      failure(error);
+    });
+  };
+
 });

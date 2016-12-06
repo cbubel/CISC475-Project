@@ -78,11 +78,14 @@ app.controller('editCourseCtrl', ['$scope', '$location', '$routeParams', 'fireba
       toastr.success("Removed course");
       $location.path("/courses");
       console.log(result);
-    }, function(error) {
-      toastr.error("Failed to remove");
-      console.log(error);
+      firebaseService.removeCourseFromAssignments($scope.course.firebaseId, function(result) {
+        toastr.success("Removed Course's Assignments");
+        }, function(error) {
+              toastr.error("Failed to remove Course's Assignments");
+              console.log(error);
+        });
     });
-  };
+  }
 
   function areReqFieldsFilled() {
     return areReqCourseFieldsFilled() && areReqSectionFieldsFilled();
