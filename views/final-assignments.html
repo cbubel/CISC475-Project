@@ -1,6 +1,6 @@
-<h1>Final Assignments</h1>
-<button type="button" ng-csv="csvAssignments" filename="test.csv">Export</button>
-
+<h1>Final Assignments
+  <button type="button" style="float:right;" class="btn btn-primary" ng-csv="csvAssignments" csv-header="getDataHeader()" filename="test.csv">Export</button>
+</h1>
 <div class="panel panel-default" ng-repeat="finalAssignment in courseAssignments">
   <div class="panel-heading">
     <div class="row">
