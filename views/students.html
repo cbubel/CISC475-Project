@@ -8,7 +8,7 @@
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>First Name: <input ng-model="search.first_name"></label>&nbsp;&nbsp;&nbsp;
       <label>Last Name: <input ng-model="search.last_name"></label>&nbsp;&nbsp;&nbsp;
       <label>Tag: <input ng-model="search.tags"></label>&nbsp;&nbsp;&nbsp;
-      <button id="clear-filter" class="btn btn-danger btn-sm" "ng-click="search=[]" type="button"> Clear Filters </button><br>
+      <button id="clear-filter" ng-click="search=[]" type="button">Clear Filter</button><br>
       <!-- Have mercy on my ugly code. It works...  -->
 	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>Undergraduate: <input type=radio ng-model="search.isUndergrad" ng-value="true"></label>&nbsp;&nbsp;&nbsp;
 	  <label>Graduate: <input type=radio ng-model="search.isUndergrad" ng-value="false"></label>&nbsp;&nbsp;&nbsp;
