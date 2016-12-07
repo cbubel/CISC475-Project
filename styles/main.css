@@ -30,7 +30,7 @@ h1, h2, h3, h4, h5, h6 {
 
 button:focus {outline:0;}
 
-tr:focus {outline:0;}
+tr:focus, td:focus {outline:0;}
 
 .btn, .btn:active, .btn:focus, input, input:active, input:focus, a:focus {
   outline: 0 !important;
