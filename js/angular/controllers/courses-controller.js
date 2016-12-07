@@ -6,7 +6,7 @@ app.controller('coursesCtrl', ['$scope', 'firebaseService', 'authService', 'cour
   $scope.courses = {};
   $scope.students = [];
 
-  $scope.prettifyDays = function(days) { //MTWHF
+  $scope.prettifyDays = function(days) { //MTWRF
     var template = {M:0, T:0, W:0, R:0, F:0};
     var res = "";
 

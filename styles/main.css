@@ -38,3 +38,10 @@ tr.hoverable:hover {
   background-color: #E3E3E3;
 }
 
+.tag-space {
+  margin-right: 5px;
+}
+
+.no-margin-table {
+  margin: 0;
+}
