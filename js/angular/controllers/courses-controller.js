@@ -6,15 +6,22 @@ app.controller('coursesCtrl', ['$scope', 'firebaseService', 'authService', 'cour
   $scope.courses = {};
   $scope.students = [];
 
-  $scope.prettifyDays = function(days) {
+  $scope.prettifyDays = function(days) { //MTWHF
+    var template = {M:0, T:0, W:0, R:0, F:0};
     var res = "";
+
     for(var day in days) {
-      res += day.toUpperCase();
+      if(days[day]) template[day] = 1;
     }
+
+    for(var day in template) {
+      if(template[day]) res += day;
+    }
+
     return res;
   };
 
-  $scope.launchModal = function(course, section) {
+  $scope.launchModal = function(course, section) {    
     $scope.currentCourse = course;
     $scope.currentSection = section;
     $scope.currentStudents = $scope.students.slice();

@@ -16,3 +16,27 @@ app.filter('courseTaken', function() {
     return output;
   };
 });
+
+app.filter('hasTags', function() {
+  return function(students, tags) {
+    if(tags === "" || tags === undefined || tags === null) return students;
+    tags = tags.split(",");
+    var output = [];
+    students.forEach(function(student) {
+        var foundAll = true;
+
+        tags.forEach(tag => {
+            var foundTag = false;
+            studentTags = student.tags.split(",");
+
+            studentTags.forEach(studentTag => {
+                if(studentTag.toUpperCase().trim() == tag.toUpperCase().trim()) foundTag = true;
+            });
+            if(!foundTag) foundAll = false;
+        });
+
+        if(foundAll) output.push(student);
+    });
+    return output;
+  };
+});

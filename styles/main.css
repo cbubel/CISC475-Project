@@ -6,8 +6,10 @@ html {
   background-color: #FFF !important;
 }
 
-.no-hover-cursor {
+.no-hover-cursor:hover {
   cursor: default !important;
+  background-color: #FFFFFF;
+  border-color: #CCC;
 }
 
 .float-right {
@@ -25,3 +27,14 @@ h1, h2, h3, h4, h5, h6 {
 .inline-student-form-filters {
   margin-right: 15px;
 }
+
+button:focus {outline:0;}
+
+a:focus {outline:0;}
+
+tr:focus {outline:0;}
+
+tr.hoverable:hover {
+  background-color: #E3E3E3;
+}
+
