@@ -30,9 +30,13 @@ h1, h2, h3, h4, h5, h6 {
 
 button:focus {outline:0;}
 
-a:focus {outline:0;}
-
 tr:focus {outline:0;}
+
+.btn, .btn:active, .btn:focus, input, input:active, input:focus, a:focus {
+  outline: 0 !important;
+  outline-style: none !important;
+  outline-width: 0 !important;
+}
 
 tr.hoverable:hover {
   background-color: #E3E3E3;
