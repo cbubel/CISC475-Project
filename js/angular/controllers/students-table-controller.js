@@ -8,7 +8,7 @@ app.controller('tableCtrl', ['$scope', 'firebaseService', 'authService', functio
   $scope.searchByName = true;
   authService.checkUser();
 
-  $scope.students = {};
+  $scope.students = [];
 
   firebaseService.getStudents(function(students) {
     $scope.students = students;
