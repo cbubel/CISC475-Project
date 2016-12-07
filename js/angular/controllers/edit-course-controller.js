@@ -116,6 +116,7 @@ app.controller('editCourseCtrl', ['$scope', '$location', '$routeParams', 'fireba
       firebaseService.updateCourse($routeParams.course_id, $scope.course, function(result) {
         toastr.success("Updated course");
         $location.path("/courses");
+        $scope.$apply();
       }, function(error) {
         toastr.error("Failed to update");
         console.log(error);

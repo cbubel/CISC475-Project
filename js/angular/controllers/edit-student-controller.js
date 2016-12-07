@@ -133,8 +133,6 @@ app.controller('editStudentCtrl', ['$scope', '$location', '$routeParams', 'fireb
   };
 
   $scope.submit = function() {
-    console.log($scope.student.schedule[0]);
-
     if (areReqFieldsFilled()) {
       // $scope.student.id = parseInt($scope.student.id);
       $scope.student.schedule.forEach(function(course) {
@@ -146,6 +144,7 @@ app.controller('editStudentCtrl', ['$scope', '$location', '$routeParams', 'fireb
       firebaseService.updateStudent($routeParams.student_id, $scope.student, function(result) {
         toastr.success("Updated student");
         $location.path("/students");
+        $scope.$apply();
       }, function(error) {
         toastr.error("Failed to update");
         console.log(error);
