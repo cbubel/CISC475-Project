@@ -67,12 +67,40 @@ app.service("firebaseService", function() {
     });
   };
 
+  var genericCallback = function(msg) {
+    console.log(msg);
+  };
+
   this.removeStudent = function(firebaseID, success, failure) {
-    db.ref(`students/${firebaseID}`).remove()
-    .then(function(snapshot) {
-      success("Successfully removed student");
-    }, function(error) {
-      failure(error);
+    var myself = this;
+    myself.getAllAssignments(function(assignments) {
+      for(var assignment_key in assignments) {
+        var assignment = assignments[assignment_key];
+        var candidates = assignment.candidates;
+        var finals = assignment.final;
+        
+        for(var candidate_key in candidates) {
+          var candidate = candidates[candidate_key];
+          console.log(candidate);
+          if(candidate.studentId == firebaseID) {
+            myself.removeCandidate(candidate_key, assignment_key, genericCallback, genericCallback);
+          }
+        }
+        for(var final_key in finals) {
+          var final = finals[final_key];
+          if(final.studentId == firebaseID) {
+            myself.removeFinal(final_key, assignment_key, genericCallback, genericCallback);
+          }
+        }
+      }
+      db.ref(`students/${firebaseID}`).remove()
+        .then(function(snapshot) {
+          success("Successfully removed student");
+        }, function(error) {
+          failure(error);
+        });
+    }, function(err) {
+      console.log(err);
     });
   };
 
@@ -224,10 +252,13 @@ app.service("firebaseService", function() {
   // Will remove student from course's candidates. Must take in the firebase ID
   // of the assignment (not the student's ID), and the firebase ID of the course
   this.removeCandidate = function(firebaseID, courseID, success, failure) {
+    console.log("trying to remove")
     db.ref(`assignments/${courseID}/candidates/${firebaseID}`).remove()
     .then(function(snapshot) {
+      console.log("removed!")
       success("Successfully removed student");
     }, function(error) {
+      console.log(error)
       failure(error);
     });
   };

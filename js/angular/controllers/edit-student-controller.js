@@ -29,45 +29,15 @@ app.controller('editStudentCtrl', ['$scope', '$location', '$routeParams', 'fireb
   };
 
   $scope.removeStudent = function() {
-    firebaseService.removeStudent($routeParams.student_id, function(result) {
-      toastr.success("Removed student");
+    var studentId = $routeParams.student_id;
+    firebaseService.removeStudent(studentId, function(msg) {
+      toastr.success(msg);
       $location.path("/students");
-      console.log(result);
-    firebaseService.getAllAssignments(function(allAssignments){
-      for(var key in allAssignments){
-        firebaseService.getCandidates(key, function(candidates){
-          console.log("Candidates")
-          console.log(candidates)
-          for(var j = 0; j<candidates.length; j++){
-            console.log("IDS")
-            console.log(candidates[j].studentId)
-            console.log($routeParams.student_id)
-            console.log(key)
-            if(candidates[j].studentId == $routeParams.student_id){
-              firebaseService.removeCandidate(candidates[j].firebaseId, key, function(result2){
-                toastr.success("Removed Candidate Assignment");
-              }, function(error) {
-                toastr.error("Failed to remove Candidate Assignment");
-                console.log(error);
-              });
-              }
-            }
-          })
-          firebaseService.getFinalAssignment(key, function(finals){
-            for(var k = 0; k<finals.length; k++){
-              if(finals[k].studentId == $routeParams.student_id){
-                firebaseService.removeFinal(finals[k].firebaseId, key, function(result2){
-                  toastr.success("Removed Final Assignment");
-                }, function(error) {
-                  toastr.error("Failed to remove Final Assignment");
-                  console.log(error);
-                });
-                }
-              }
-            })
-        }
-      })
-    })
+      $scope.$apply();
+    }, function(err) {
+      console.log(err);
+      toastr.error(err);
+    });
   };
 
   $scope.initTime = function(time) {
