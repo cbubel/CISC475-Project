@@ -29,7 +29,7 @@
         <td>{{section.instructor}}</td>
         <td>{{section.startTime}}</td>
         <td>{{section.endTime}}</td>
-        <td><span ng-repeat="(day, b) in section.days track by day">{{day}}</span></td>
+        <td>{{prettifyDays(section.days)}}</td>
         <td>{{section.gradTAsNeeded}}</td>
         <td>{{section.undergradTAsNeeded}}</td>
         <td>{{section.undergradLAsNeeded}}</td>

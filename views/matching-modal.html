@@ -17,7 +17,7 @@
                                         Tag
                                     </div>
                                 </div>
-                                <input ng-model="searchTag" type="text" placeholder="Search tag" class="form-control" />
+                                <input ng-init="searchTags = ''" ng-model="searchTags" type="text" placeholder="Search tag" class="form-control" />
                             </div>
                         </div>
 
@@ -28,7 +28,7 @@
                                         Course
                                     </div>
                                 </div>
-                                <input ng-model="searchCourse" type="text" placeholder="Search course taken" class="form-control" />
+                                <input ng-init="searchCourse = ''" ng-model="searchCourse" type="text" placeholder="Search course taken" class="form-control" />
                             </div>
                         </div>
                         &nbsp; &nbsp; &nbsp;
@@ -73,7 +73,7 @@
             <br>
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-condensed table-striped">
+                    <table class="table table-condensed">
                         <thead>
                             <tr>
                                 <th>First Name</th>
@@ -85,18 +85,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="student in currentStudents | filter:showIsUndergrad | filter:{tags:searchTag} | courseTaken:searchCourse | filter:showIsAssigned track by student.firebaseId">
+                            <tr class="hoverable" ng-init="showExtraInfo = false" ng-click="showExtraInfo = !showExtraInfo" ng-repeat-start="student in currentStudents | filter:showIsUndergrad | hasTags:searchTags | courseTaken:searchCourse | filter:showIsAssigned track by student.firebaseId">
                                 <td>{{student.first_name}}</td>
                                 <td>{{student.last_name}}</td>
                                 <td><p ng-show="student.isUndergrad">Undergrad</p>
                                 <p ng-show="!student.isUndergrad">Graduate</p></td>
                                 <td>{{student.tags}}</td>
                                 <td>
-                                    <button ng-hide="student.isAssigned" id="assignStudent" class="btn btn-success btn-xs" ng-click="assignCandidate($index, student.firebaseId, currentCourse.firebaseId, currentSection.sectionID)">
+                                    <button ng-hide="student.isAssigned" id="assignStudent" class="btn btn-success btn-xs" ng-click="$event.stopPropagation(); assignCandidate($index, student.firebaseId, currentCourse.firebaseId, currentSection.sectionID)">
                                         Assign candidate
                                     </button>
 
-                                    <button ng-show="student.isAssigned" id="assignStudent" class="btn btn-danger btn-xs" ng-click="removeCandidate($index, student.assignmentFbId, currentCourse.firebaseId)">
+                                    <button ng-show="student.isAssigned" id="assignStudent" class="btn btn-danger btn-xs" ng-click="$event.stopPropagation(); removeCandidate($index, student.assignmentFbId, currentCourse.firebaseId)">
                                         Remove candidate
                                     </button>
                                 </td>
@@ -104,6 +104,28 @@
                                 <a href="" ng-click="removeStudent(student.firebaseId)">
                                   <button class="btn btn-warning btn-xs"> Hide </button>
                                 </a>
+                                </td>
+                            </tr>
+                            <tr ng-repeat-end ng-show="showExtraInfo">
+                                <td colspan="6" style="padding:0">
+                                    <table class="table table-condensed table-striped" style="padding:0 margin:0 !important">
+                                        <thead>
+                                            <tr>
+                                                <th>Course</th>
+                                                <th>Start Time</th>
+                                                <th>End Time</th>
+                                                <th>Days</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="(key, courseEntry) in student.schedule">
+                                                <td>{{courseEntry.id}}</td>
+                                                <td>{{courseEntry.start_time}}</td>
+                                                <td>{{courseEntry.end_time}}</td>
+                                                <td>{{prettifyDays(courseEntry.days)}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </td>
                             </tr>
                         </tbody>
