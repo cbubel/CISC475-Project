@@ -78,7 +78,7 @@ app.service("firebaseService", function() {
         var assignment = assignments[assignment_key];
         var candidates = assignment.candidates;
         var finals = assignment.final;
-        
+
         for(var candidate_key in candidates) {
           var candidate = candidates[candidate_key];
           console.log(candidate);
@@ -172,6 +172,32 @@ app.service("firebaseService", function() {
       failure(error);
     });
   };
+
+  this.removeSection= function(courseID, sectionIndex, sectionID, success, failure) {
+    var myself = this;
+    myself.getCandidates(courseID, function(candidates) {
+      for(var assignment_key in candidates) {
+        var assignment = candidates[assignment_key];
+        if(assignment.section == sectionID){
+          myself.removeCandidate(assignment.firebaseId, courseID, genericCallback, genericCallback);
+        }
+      }
+    });
+    myself.getFinalAssignment(courseID, function(finals) {
+      for(var assignment_key in finals) {
+        var assignment = finals[assignment_key];
+        if(assignment.section == sectionID){
+          myself.removeFinal(assignment.firebaseId, courseID, genericCallback, genericCallback);
+        }
+      }
+    });
+      db.ref(`courses/${courseID}/sections/${sectionIndex}`).remove()
+      .then(function(snapshot) {
+        success("Successfully removed section");
+      }, function(error) {
+        failure(error);
+      });
+};
 
   /* ASSIGNMENT OPERATIONS */
 

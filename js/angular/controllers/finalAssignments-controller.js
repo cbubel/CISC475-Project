@@ -2,9 +2,11 @@ var app = angular.module('baseApp');
 
 app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', function($scope, firebaseService, authService) {
     authService.checkUser();
+    // HERE is where you would add header to Course CSV
     $scope.getDataHeaderCourse = function(){
       return ["Course","Section", "Name", "Email"];
     }
+    // HERE is where you would add header to Student CSV
     $scope.getDataHeaderStudent = function(){
       return ["Name", "Course","Section", "Workload", "Email"];
     }
@@ -55,6 +57,7 @@ app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', functio
                              workload = fbcourse.sections[j].numberOfStudents;
                           }
                         }
+                        // LINE BELOW is where you add info to Student csv
                         $scope.csvAssignmentsStudents.push([candidateInfo.name, course.courseID, candidateInfo.section, workload, student.email]);
                         $scope.assignedStudents.push([candidateInfo.name, course.courseID, candidateInfo.section, workload]);
                         // once we have all the info about candidates we need, we push the candidates list
@@ -62,6 +65,7 @@ app.controller('finalCtrl', ['$scope', 'firebaseService', 'authService', functio
                             $scope.courseAssignments[index] = [course, candidates];
                             //if by course
                               for(var i=0; i < candidates.length; i++){
+                                // LINE BELOW is where you add info to Courses csv
                                 $scope.csvAssignmentsCourses.push([course.courseID, candidates[i].section, candidates[i].name, candidates[i].email]);
                               }
                             $scope.$apply();

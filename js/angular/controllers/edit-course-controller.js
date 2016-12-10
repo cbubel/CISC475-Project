@@ -70,7 +70,14 @@ app.controller('editCourseCtrl', ['$scope', '$location', '$routeParams', 'fireba
   };
 
   $scope.removeSection = function(idx) {
-    $scope.course.removeSection(idx);
+    console.log(idx);
+    firebaseService.removeSection($scope.course.firebaseId, idx, $scope.course.sections[idx].sectionID, function(result) {
+      toastr.success("Removed Section");
+      }, function(error) {
+            toastr.error("Failed to remove Section");
+            console.log(error);
+    });
+      $scope.course.removeSection(idx);
   };
 
   $scope.removeCourse = function() {
